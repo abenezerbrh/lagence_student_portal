@@ -1,619 +1,1865 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>L'Agence French — Student Portal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<style>
-:root {
-  --navy:#12122a;--gold:#e8c44a;--gold-pale:#fdf6dc;--cream:#faf8f2;--bg:#f0ede6;
-  --text:#1a1a30;--muted:#6b6b8a;--hint:#a9a9c2;
-  --border:rgba(18,18,42,.09);--border-mid:rgba(18,18,42,.16);
-  --ok:#2e7d32;--ok-bg:#e8f5e9;--warn:#e65100;--warn-bg:#fff3e0;
-  --blue:#1a5fa8;--blue-bg:#e3f0fb;
-  --r:14px;--rs:8px;--sh:0 2px 12px rgba(18,18,42,.07);
-  --sw:240px;
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;color:var(--text)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Agence French — Student Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+    <style>
+        :root {
+            --navy: #12122a;
+            --gold: #e8c44a;
+            --gold-pale: #fdf6dc;
+            --cream: #faf8f2;
+            --bg: #f0ede6;
+            --text: #1a1a30;
+            --muted: #6b6b8a;
+            --hint: #a9a9c2;
+            --border: rgba(18, 18, 42, .09);
+            --border-mid: rgba(18, 18, 42, .16);
+            --ok: #2e7d32;
+            --ok-bg: #e8f5e9;
+            --warn: #e65100;
+            --warn-bg: #fff3e0;
+            --blue: #1a5fa8;
+            --blue-bg: #e3f0fb;
+            --r: 14px;
+            --rs: 8px;
+            --sh: 0 2px 12px rgba(18, 18, 42, .07);
+            --sw: 240px;
+        }
 
-/* ── LOGIN ── */
-#page-login{min-height:100vh;display:flex;align-items:stretch}
-.ll{background:var(--navy);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;position:relative;overflow:hidden}
-.ll::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,196,74,.15) 0%,transparent 70%);top:-100px;right:-100px}
-.ll::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,196,74,.08) 0%,transparent 70%);bottom:-80px;left:-80px}
-.ll-brand{position:relative;z-index:1;text-align:center}
-.logo-mark{width:80px;height:80px;border-radius:22px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);margin:0 auto 20px;box-shadow:0 6px 28px rgba(232,196,74,.4)}
-.ll-brand h1{font-family:'Playfair Display',serif;font-size:32px;color:#fff;line-height:1.2}
-.ll-brand p{font-size:14px;color:rgba(255,255,255,.5);margin-top:8px;letter-spacing:.4px}
-.ll-quote{position:relative;z-index:1;margin-top:48px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:20px 24px;max-width:320px}
-.ll-quote p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.65}
-.ll-quote cite{display:block;font-size:12px;color:var(--gold);margin-top:10px;font-style:normal}
-.lr{width:460px;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:60px 48px}
-.lr h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:6px}
-.lr .sub{font-size:14px;color:var(--muted);margin-bottom:36px}
-.field{margin-bottom:20px}
-.field label{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
-.field input{width:100%;padding:13px 16px;border:1.5px solid var(--border-mid);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:#fff;outline:none;transition:border-color .2s}
-.field input:focus{border-color:var(--navy)}
-.btn-primary{width:100%;padding:15px;background:var(--navy);color:var(--gold);border:none;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;letter-spacing:.3px;margin-bottom:12px;transition:opacity .15s}
-.btn-primary:hover{opacity:.9}
-.login-hint{text-align:center;font-size:12px;color:var(--hint);padding-top:4px}
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0}
-.divider hr{flex:1;border:none;border-top:1px solid var(--border)}
-.divider span{font-size:12px;color:var(--hint)}
-.btn-outline{width:100%;padding:13px;background:transparent;border:1.5px solid var(--border-mid);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:border-color .2s,background .2s}
-.btn-outline:hover{border-color:var(--navy);background:var(--cream)}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent
+        }
 
-/* ── APP SHELL ── */
-#page-app{display:none;min-height:100vh}
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--navy);display:flex;flex-direction:column;z-index:100}
-.sb-brand{padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:12px}
-.sb-logo{width:38px;height:38px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);flex-shrink:0}
-.sb-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);line-height:1.2}
-.sb-name small{display:block;font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);font-weight:300;margin-top:2px}
-.sb-nav{padding:20px 12px;flex:1}
-.ni{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;cursor:pointer;margin-bottom:4px;transition:background .15s;border:none;background:transparent;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
-.ni .ti{font-size:19px;color:rgba(255,255,255,.4)}
-.ni span{font-size:14px;color:rgba(255,255,255,.5)}
-.ni:hover{background:rgba(255,255,255,.06)}
-.ni.active{background:rgba(232,196,74,.12)}
-.ni.active .ti{color:var(--gold)}
-.ni.active span{color:var(--gold);font-weight:500}
-.sb-user{padding:20px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px}
-.u-av{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--navy);flex-shrink:0}
-.u-info p{font-size:13px;font-weight:500;color:#fff}
-.u-info small{font-size:11px;color:rgba(255,255,255,.4)}
-.logout-btn{margin-left:auto;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.3);padding:4px}
-.logout-btn:hover{color:rgba(255,255,255,.6)}
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text)
+        }
 
-.main{margin-left:var(--sw);min-height:100vh;display:flex;flex-direction:column}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10}
-.topbar-title{font-size:18px;font-weight:500;color:var(--text)}
-.streak-chip{display:flex;align-items:center;gap:6px;background:var(--gold-pale);border:1px solid rgba(232,196,74,.4);border-radius:20px;padding:5px 12px;font-size:13px;color:#8a6a00;font-weight:500}
+        /* ── LOGIN ── */
+        #page-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch
+        }
 
-/* views */
-.view{display:none;padding:32px;animation:fi .2s ease}
-.view.active{display:block}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+        .ll {
+            background: var(--navy);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden
+        }
 
-/* dashboard grid */
-.dash-grid{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+        .ll::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(232, 196, 74, .15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px
+        }
 
-/* cards */
-.card{background:#fff;border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:var(--sh);border:1px solid var(--border)}
-.card-label{font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--hint);margin-bottom:16px}
+        .ll::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(232, 196, 74, .08) 0%, transparent 70%);
+            bottom: -80px;
+            left: -80px
+        }
 
-/* greeting */
-.greeting h1{font-family:'Playfair Display',serif;font-size:28px;color:var(--text)}
-.greeting p{font-size:14px;color:var(--muted);margin-top:6px}
+        .ll-brand {
+            position: relative;
+            z-index: 1;
+            text-align: center
+        }
 
-/* cta */
-.cta{background:var(--navy);border-radius:var(--r);padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;transition:opacity .15s}
-.cta:hover{opacity:.93}
-.cta-l h3{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);margin-bottom:4px}
-.cta-l p{font-size:16px;font-weight:500;color:#fff}
-.cta-l p em{color:var(--gold);font-style:normal}
-.cta-arr{width:42px;height:42px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cta-arr .ti{font-size:20px;color:var(--navy)}
+        .logo-mark {
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--navy);
+            margin: 0 auto 20px;
+            box-shadow: 0 6px 28px rgba(232, 196, 74, .4)
+        }
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-.stat{background:#fff;border-radius:var(--r);padding:18px 16px;border:1px solid var(--border);box-shadow:var(--sh);text-align:center}
-.stat-n{font-family:'Playfair Display',serif;font-size:28px;color:var(--navy)}
-.stat-l{font-size:12px;color:var(--hint);margin-top:4px}
+        .ll-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #fff;
+            line-height: 1.2
+        }
 
-/* progress */
-.pr{margin-bottom:18px}
-.pr:last-child{margin-bottom:0}
-.pr-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
-.pr-title{font-size:14px;font-weight:500;color:var(--text)}
-.pr-sub{font-size:12px;color:var(--hint);margin-top:2px}
-.pr-pct{font-size:20px;font-weight:300;color:var(--navy);font-family:'Playfair Display',serif}
-.pr-track{height:7px;background:#ebebf5;border-radius:4px;overflow:hidden}
-.pr-fill{height:100%;border-radius:4px}
+        .ll-brand p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, .5);
+            margin-top: 8px;
+            letter-spacing: .4px
+        }
 
-/* feedback */
-.fb-card{background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--border);border-left:3px solid var(--gold);box-shadow:var(--sh);margin-bottom:20px}
-.fb-who{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.fb-av{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--gold);flex-shrink:0}
-.fb-name{font-size:13px;font-weight:500;color:var(--text)}
-.fb-date{font-size:11px;color:var(--hint);margin-top:1px}
-.fb-body{font-size:14px;color:var(--muted);line-height:1.65}
-.fb-tag{display:inline-block;margin-top:10px;background:var(--gold-pale);color:#8a6a00;font-size:11px;padding:3px 10px;border-radius:20px}
+        .ll-quote {
+            position: relative;
+            z-index: 1;
+            margin-top: 48px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: var(--r);
+            padding: 20px 24px;
+            max-width: 320px
+        }
 
-/* lessons */
-.li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--rs);margin-bottom:8px;background:#fff;border:1px solid var(--border);cursor:pointer;transition:box-shadow .15s,transform .15s}
-.li:hover:not(.locked){box-shadow:0 4px 16px rgba(18,18,42,.1);transform:translateY(-1px)}
-.li.locked{opacity:.5;cursor:default}
-.li.current{border-color:var(--navy);border-width:1.5px}
-.lnum{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
-.lnum.done{background:var(--ok-bg);color:var(--ok)}
-.lnum.current{background:var(--navy);color:var(--gold)}
-.lnum.locked{background:#f0f0f5;color:var(--hint)}
-.li-info{flex:1;min-width:0}
-.li-title{font-size:14px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.li-meta{font-size:12px;color:var(--hint);margin-top:3px;display:flex;align-items:center;gap:6px}
-.badge{font-size:11px;padding:3px 10px;border-radius:20px;flex-shrink:0}
-.b-done{background:var(--ok-bg);color:var(--ok)}
-.b-cur{background:var(--navy);color:var(--gold)}
-.b-lock{background:#f0f0f5;color:var(--hint)}
-.mod-div{display:flex;align-items:center;gap:10px;margin:24px 0 12px}
-.mod-div h3{font-size:14px;font-weight:500;color:var(--text)}
-.mod-div hr{flex:1;border:none;border-top:1px solid var(--border)}
-.mod-div .pct{font-size:12px;color:var(--hint)}
+        .ll-quote p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, .7);
+            line-height: 1.65
+        }
 
-/* homework */
-.hw-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-.hw-card{background:#fff;border-radius:var(--r);padding:20px;margin-bottom:16px;border:1px solid var(--border);box-shadow:var(--sh)}
-.hw-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:14px}
-.hw-title{font-size:15px;font-weight:500;color:var(--text)}
-.hw-meta{font-size:12px;color:var(--hint);margin-top:3px;display:flex;align-items:center;gap:6px}
-.hw-st{font-size:11px;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
-.hs-p{background:var(--warn-bg);color:var(--warn)}
-.hs-d{background:var(--ok-bg);color:var(--ok)}
-.hs-r{background:var(--blue-bg);color:var(--blue)}
-.drop-zone{border:1.5px dashed var(--border-mid);border-radius:var(--rs);padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:12px}
-.drop-zone:hover{border-color:var(--navy);background:var(--cream)}
-.drop-zone .ti{font-size:28px;color:var(--hint);display:block;margin-bottom:6px}
-.drop-zone p{font-size:14px;color:var(--muted)}
-.drop-zone small{font-size:12px;color:var(--hint);margin-top:4px;display:block}
-.btn-sub{padding:12px 24px;background:var(--navy);color:var(--gold);border:none;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s}
-.btn-sub:hover{opacity:.9}
-.sub-file{display:flex;align-items:center;gap:10px;background:var(--ok-bg);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px}
-.sub-file .ti{font-size:20px;color:var(--ok)}
-.sub-file p{font-size:13px;font-weight:500;color:var(--ok)}
-.sub-file small{font-size:11px;color:#4caf50;margin-top:1px;display:block}
-.tc{background:var(--blue-bg);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#0d3d6e;line-height:1.6}
-.tc strong{color:var(--blue);font-weight:500}
+        .ll-quote cite {
+            display: block;
+            font-size: 12px;
+            color: var(--gold);
+            margin-top: 10px;
+            font-style: normal
+        }
 
-/* section label */
-.slabel{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:12px}
+        .lr {
+            width: 460px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 48px
+        }
 
-/* toast */
-.toast{position:fixed;bottom:32px;right:32px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:20px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;display:flex;align-items:center;gap:8px;z-index:999;transform:translateY(10px);box-shadow:0 8px 24px rgba(18,18,42,.3)}
-.toast.show{opacity:1;transform:translateY(0)}
+        .lr h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--text);
+            margin-bottom: 6px
+        }
 
-/* ── MOBILE ── */
-.mob-top{display:none;background:var(--navy);padding:14px 18px;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
-.mob-top .sb-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)}
-.mob-nav{display:none;border-top:1px solid var(--border);background:#fff;flex-shrink:0;position:sticky;bottom:0;z-index:100}
-.mn-btn{flex:1;border:none;background:transparent;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-family:'DM Sans',sans-serif}
-.mn-btn .ti{font-size:21px;color:var(--hint)}
-.mn-btn span{font-size:10px;color:var(--hint)}
-.mn-btn.active .ti,.mn-btn.active span{color:var(--navy)}
-.mn-btn.active span{font-weight:500}
+        .lr .sub {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 36px
+        }
 
-@media(max-width:900px){
-  .sidebar,.topbar{display:none}
-  .main{margin-left:0}
-  .mob-top{display:flex}
-  .mob-nav{display:flex}
-  .dash-grid,.hw-grid{grid-template-columns:1fr}
-  .view{padding:16px 16px 80px}
-  #page-login{flex-direction:column}
-  .ll{padding:40px 28px 36px;flex:none}
-  .ll-quote{display:none}
-  .lr{width:100%;padding:32px 28px 40px}
-  .toast{bottom:90px;right:16px;left:16px;justify-content:center}
-}
-@media(max-width:480px){
-  .stats{grid-template-columns:1fr 1fr}
-  .stat:last-child{display:none}
-}
+        .field {
+            margin-bottom: 20px
+        }
+
+        .field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .field input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border-mid);
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            color: var(--text);
+            background: #fff;
+            outline: none;
+            transition: border-color .2s
+        }
+
+        .field input:focus {
+            border-color: var(--navy)
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: var(--navy);
+            color: var(--gold);
+            border: none;
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: .3px;
+            margin-bottom: 12px;
+            transition: opacity .15s
+        }
+
+        .btn-primary:hover {
+            opacity: .9
+        }
+
+        .login-hint {
+            text-align: center;
+            font-size: 12px;
+            color: var(--hint);
+            padding-top: 4px
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0
+        }
+
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--border)
+        }
+
+        .divider span {
+            font-size: 12px;
+            color: var(--hint)
+        }
+
+        .btn-outline {
+            width: 100%;
+            padding: 13px;
+            background: transparent;
+            border: 1.5px solid var(--border-mid);
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: border-color .2s, background .2s
+        }
+
+        .btn-outline:hover {
+            border-color: var(--navy);
+            background: var(--cream)
+        }
+
+        /* ── APP SHELL ── */
+        #page-app {
+            display: none;
+            min-height: 100vh
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sw);
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            z-index: 100
+        }
+
+        .sb-brand {
+            padding: 28px 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .sb-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--navy);
+            flex-shrink: 0
+        }
+
+        .sb-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--gold);
+            line-height: 1.2
+        }
+
+        .sb-name small {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: rgba(255, 255, 255, .4);
+            font-weight: 300;
+            margin-top: 2px
+        }
+
+        .sb-nav {
+            padding: 20px 12px;
+            flex: 1
+        }
+
+        .ni {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: background .15s;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .ni .ti {
+            font-size: 19px;
+            color: rgba(255, 255, 255, .4)
+        }
+
+        .ni span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, .5)
+        }
+
+        .ni:hover {
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .ni.active {
+            background: rgba(232, 196, 74, .12)
+        }
+
+        .ni.active .ti {
+            color: var(--gold)
+        }
+
+        .ni.active span {
+            color: var(--gold);
+            font-weight: 500
+        }
+
+        .sb-user {
+            padding: 20px 24px;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .u-av {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--navy);
+            flex-shrink: 0
+        }
+
+        .u-info p {
+            font-size: 13px;
+            font-weight: 500;
+            color: #fff
+        }
+
+        .u-info small {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .4)
+        }
+
+        .logout-btn {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: rgba(255, 255, 255, .3);
+            padding: 4px
+        }
+
+        .logout-btn:hover {
+            color: rgba(255, 255, 255, .6)
+        }
+
+        .main {
+            margin-left: var(--sw);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 10
+        }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .streak-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold-pale);
+            border: 1px solid rgba(232, 196, 74, .4);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 13px;
+            color: #8a6a00;
+            font-weight: 500
+        }
+
+        /* views */
+        .view {
+            display: none;
+            padding: 32px;
+            animation: fi .2s ease
+        }
+
+        .view.active {
+            display: block
+        }
+
+        @keyframes fi {
+            from {
+                opacity: 0;
+                transform: translateY(4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* dashboard grid */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            align-items: start
+        }
+
+        /* cards */
+        .card {
+            background: #fff;
+            border-radius: var(--r);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--sh);
+            border: 1px solid var(--border)
+        }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--hint);
+            margin-bottom: 16px
+        }
+
+        /* greeting */
+        .greeting h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--text)
+        }
+
+        .greeting p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 6px
+        }
+
+        /* cta */
+        .cta {
+            background: var(--navy);
+            border-radius: var(--r);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            transition: opacity .15s
+        }
+
+        .cta:hover {
+            opacity: .93
+        }
+
+        .cta-l h3 {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, .5);
+            margin-bottom: 4px
+        }
+
+        .cta-l p {
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff
+        }
+
+        .cta-l p em {
+            color: var(--gold);
+            font-style: normal
+        }
+
+        .cta-arr {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .cta-arr .ti {
+            font-size: 20px;
+            color: var(--navy)
+        }
+
+        /* stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px
+        }
+
+        .stat {
+            background: #fff;
+            border-radius: var(--r);
+            padding: 18px 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--sh);
+            text-align: center
+        }
+
+        .stat-n {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--navy)
+        }
+
+        .stat-l {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 4px
+        }
+
+        /* progress */
+        .pr {
+            margin-bottom: 18px
+        }
+
+        .pr:last-child {
+            margin-bottom: 0
+        }
+
+        .pr-hd {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px
+        }
+
+        .pr-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .pr-sub {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 2px
+        }
+
+        .pr-pct {
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--navy);
+            font-family: 'Playfair Display', serif
+        }
+
+        .pr-track {
+            height: 7px;
+            background: #ebebf5;
+            border-radius: 4px;
+            overflow: hidden
+        }
+
+        .pr-fill {
+            height: 100%;
+            border-radius: 4px
+        }
+
+        /* feedback */
+        .fb-card {
+            background: #fff;
+            border-radius: var(--r);
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            box-shadow: var(--sh);
+            margin-bottom: 20px
+        }
+
+        .fb-who {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px
+        }
+
+        .fb-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--gold);
+            flex-shrink: 0
+        }
+
+        .fb-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .fb-date {
+            font-size: 11px;
+            color: var(--hint);
+            margin-top: 1px
+        }
+
+        .fb-body {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.65
+        }
+
+        .fb-tag {
+            display: inline-block;
+            margin-top: 10px;
+            background: var(--gold-pale);
+            color: #8a6a00;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px
+        }
+
+        /* lessons */
+        .li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: var(--rs);
+            margin-bottom: 8px;
+            background: #fff;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: box-shadow .15s, transform .15s
+        }
+
+        .li:hover:not(.locked) {
+            box-shadow: 0 4px 16px rgba(18, 18, 42, .1);
+            transform: translateY(-1px)
+        }
+
+        .li.locked {
+            opacity: .5;
+            cursor: default
+        }
+
+        .li.current {
+            border-color: var(--navy);
+            border-width: 1.5px
+        }
+
+        .lnum {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            flex-shrink: 0
+        }
+
+        .lnum.done {
+            background: var(--ok-bg);
+            color: var(--ok)
+        }
+
+        .lnum.current {
+            background: var(--navy);
+            color: var(--gold)
+        }
+
+        .lnum.locked {
+            background: #f0f0f5;
+            color: var(--hint)
+        }
+
+        .li-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .li-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .li-meta {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            flex-shrink: 0
+        }
+
+        .b-done {
+            background: var(--ok-bg);
+            color: var(--ok)
+        }
+
+        .b-cur {
+            background: var(--navy);
+            color: var(--gold)
+        }
+
+        .b-lock {
+            background: #f0f0f5;
+            color: var(--hint)
+        }
+
+        .mod-div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 24px 0 12px
+        }
+
+        .mod-div h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .mod-div hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--border)
+        }
+
+        .mod-div .pct {
+            font-size: 12px;
+            color: var(--hint)
+        }
+
+        /* homework */
+        .hw-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start
+        }
+
+        .hw-card {
+            background: #fff;
+            border-radius: var(--r);
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--sh)
+        }
+
+        .hw-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 14px
+        }
+
+        .hw-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .hw-meta {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .hw-st {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0
+        }
+
+        .hs-p {
+            background: var(--warn-bg);
+            color: var(--warn)
+        }
+
+        .hs-d {
+            background: var(--ok-bg);
+            color: var(--ok)
+        }
+
+        .hs-r {
+            background: var(--blue-bg);
+            color: var(--blue)
+        }
+
+        .drop-zone {
+            border: 1.5px dashed var(--border-mid);
+            border-radius: var(--rs);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+            margin-bottom: 12px
+        }
+
+        .drop-zone:hover {
+            border-color: var(--navy);
+            background: var(--cream)
+        }
+
+        .drop-zone .ti {
+            font-size: 28px;
+            color: var(--hint);
+            display: block;
+            margin-bottom: 6px
+        }
+
+        .drop-zone p {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        .drop-zone small {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 4px;
+            display: block
+        }
+
+        .btn-sub {
+            padding: 12px 24px;
+            background: var(--navy);
+            color: var(--gold);
+            border: none;
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity .15s
+        }
+
+        .btn-sub:hover {
+            opacity: .9
+        }
+
+        .sub-file {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ok-bg);
+            border-radius: var(--rs);
+            padding: 12px 14px;
+            margin-bottom: 12px
+        }
+
+        .sub-file .ti {
+            font-size: 20px;
+            color: var(--ok)
+        }
+
+        .sub-file p {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ok)
+        }
+
+        .sub-file small {
+            font-size: 11px;
+            color: #4caf50;
+            margin-top: 1px;
+            display: block
+        }
+
+        .tc {
+            background: var(--blue-bg);
+            border-radius: var(--rs);
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #0d3d6e;
+            line-height: 1.6
+        }
+
+        .tc strong {
+            color: var(--blue);
+            font-weight: 500
+        }
+
+        /* section label */
+        .slabel {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--hint);
+            margin-bottom: 12px
+        }
+
+        /* toast */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--navy);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            opacity: 0;
+            transition: all .3s;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+            transform: translateY(10px);
+            box-shadow: 0 8px 24px rgba(18, 18, 42, .3)
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ── MOBILE ── */
+        .mob-top {
+            display: none;
+            background: var(--navy);
+            padding: 14px 18px;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100
+        }
+
+        .mob-top .sb-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--gold)
+        }
+
+        .mob-nav {
+            display: none;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 100
+        }
+
+        .mn-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 10px 4px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .mn-btn .ti {
+            font-size: 21px;
+            color: var(--hint)
+        }
+
+        .mn-btn span {
+            font-size: 10px;
+            color: var(--hint)
+        }
+
+        .mn-btn.active .ti,
+        .mn-btn.active span {
+            color: var(--navy)
+        }
+
+        .mn-btn.active span {
+            font-weight: 500
+        }
+
+        @media(max-width:900px) {
+
+            .sidebar,
+            .topbar {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .mob-top {
+                display: flex
+            }
+
+            .mob-nav {
+                display: flex
+            }
+
+            .dash-grid,
+            .hw-grid {
+                grid-template-columns: 1fr
+            }
+
+            .view {
+                padding: 16px 16px 80px
+            }
+
+            #page-login {
+                flex-direction: column
+            }
+
+            .ll {
+                padding: 40px 28px 36px;
+                flex: none
+            }
+
+            .ll-quote {
+                display: none
+            }
+
+            .lr {
+                width: 100%;
+                padding: 32px 28px 40px
+            }
+
+            .toast {
+                bottom: 90px;
+                right: 16px;
+                left: 16px;
+                justify-content: center
+            }
+        }
+
+        @media(max-width:480px) {
+            .stats {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .stat:last-child {
+                display: none
+            }
+        }
 
 
 
 
-.sb-user-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 24px;
-  background: transparent;
-  border: none;
-  border-top: 1px solid rgba(255,255,255,.07);
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  text-align: left;
-  transition: background .15s;
-}
-.sb-user-btn:hover { background: rgba(255,255,255,.05); }
-.sb-chevron { font-size: 15px; color: rgba(255,255,255,.3); margin-left: auto; transition: transform .2s; }
-.sb-chevron.open { transform: rotate(180deg); }
- 
-/* Mobile user button */
-.mob-user-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 2px;
-}
- 
-/* Shared dropdown panel */
-.user-dropdown {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 12px;
-  right: 12px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(18,18,42,.18), 0 0 0 1px rgba(18,18,42,.07);
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(6px);
-  transition: opacity .18s, transform .18s;
-  z-index: 200;
-}
-.user-dropdown.open {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateY(0);
-}
- 
-/* Mobile dropdown opens downward, aligns to right */
-.user-dropdown--right {
-  bottom: auto;
-  top: calc(100% + 8px);
-  left: auto;
-  right: 0;
-  min-width: 220px;
-}
- 
-.ud-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-}
-.ud-av {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #12122a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 500;
-  color: #e8c44a;
-  flex-shrink: 0;
-}
-.ud-name { font-size: 14px; font-weight: 500; color: #1a1a30; }
-.ud-email { font-size: 12px; color: #a9a9c2; margin-top: 2px; }
- 
-.ud-divider { height: 1px; background: rgba(18,18,42,.08); margin: 0 12px; }
- 
-.ud-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  background: transparent;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: #1a1a30;
-  cursor: pointer;
-  text-align: left;
-  transition: background .12s;
-}
-.ud-item .ti { font-size: 16px; color: #a9a9c2; }
-.ud-item:hover { background: #f0ede6; }
-.ud-item:last-child { margin-bottom: 4px; }
- 
-.ud-logout { color: #c62828; }
-.ud-logout .ti { color: #c62828; }
-.ud-logout:hover { background: #fce8e8; }
+        .sb-user-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            text-align: left;
+            transition: background .15s;
+        }
 
-</style>
+        .sb-user-btn:hover {
+            background: rgba(255, 255, 255, .05);
+        }
+
+        .sb-chevron {
+            font-size: 15px;
+            color: rgba(255, 255, 255, .3);
+            margin-left: auto;
+            transition: transform .2s;
+        }
+
+        .sb-chevron.open {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile user button */
+        .mob-user-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        /* Shared dropdown panel */
+        .user-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 12px;
+            right: 12px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(18, 18, 42, .18), 0 0 0 1px rgba(18, 18, 42, .07);
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity .18s, transform .18s;
+            z-index: 200;
+        }
+
+        .user-dropdown.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        /* Mobile dropdown opens downward, aligns to right */
+        .user-dropdown--right {
+            bottom: auto;
+            top: calc(100% + 8px);
+            left: auto;
+            right: 0;
+            min-width: 220px;
+        }
+
+        .ud-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .ud-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #12122a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #e8c44a;
+            flex-shrink: 0;
+        }
+
+        .ud-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a1a30;
+        }
+
+        .ud-email {
+            font-size: 12px;
+            color: #a9a9c2;
+            margin-top: 2px;
+        }
+
+        .ud-divider {
+            height: 1px;
+            background: rgba(18, 18, 42, .08);
+            margin: 0 12px;
+        }
+
+        .ud-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #1a1a30;
+            cursor: pointer;
+            text-align: left;
+            transition: background .12s;
+        }
+
+        .ud-item .ti {
+            font-size: 16px;
+            color: #a9a9c2;
+        }
+
+        .ud-item:hover {
+            background: #f0ede6;
+        }
+
+        .ud-item:last-child {
+            margin-bottom: 4px;
+        }
+
+        .ud-logout {
+            color: #c62828;
+        }
+
+        .ud-logout .ti {
+            color: #c62828;
+        }
+
+        .ud-logout:hover {
+            background: #fce8e8;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- LOGIN -->
-<div id="page-login">
-  <div class="ll">
-    <div class="ll-brand">
-      <div class="logo-mark">LA</div>
-      <h1>L'Agence French</h1>
-      <p>Student portal · Portail étudiant</p>
-    </div>
-    <div class="ll-quote">
-      <p>"Learning French opens doors — to culture, career, and connection. Let's make every lesson count."</p>
-      <cite>— Isabelle, Founder</cite>
-    </div>
-  </div>
-  <div class="lr">
-    <h2>Welcome back</h2>
-    <p class="sub">Sign in to continue your French journey</p>
-    <div class="field"><label>Email address</label><input type="email" value="marie@student.com" placeholder="you@example.com"></div>
-    <div class="field"><label>Password</label><input type="password" value="demo1234" placeholder="••••••••"></div>
-    <button class="btn-primary" onclick="launchApp()">Sign in to your account</button>
-    <p class="login-hint">Prototype demo — any credentials work</p>
-    <div class="divider"><hr><span>or</span><hr></div>
-    <button class="btn-outline" onclick="showToast('Free lesson booking coming soon!')"><i class="ti ti-gift" aria-hidden="true"></i> Book your free 1-hour lesson</button>
-  </div>
-</div>
-
-<!-- APP -->
-<div id="page-app">
-
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <div class="sb-brand">
-      <div class="sb-logo">LA</div>
-      <div class="sb-name">L'Agence French <small>Student portal</small></div>
-    </div>
-    <div class="sb-nav">
-      <button class="ni active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home" aria-hidden="true"></i><span>Dashboard</span></button>
-      <button class="ni" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book" aria-hidden="true"></i><span>Lessons</span></button>
-      <button class="ni" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload" aria-hidden="true"></i><span>Homework</span></button>
-      <button class="ni" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
-      <button class="ni" onclick="showToast('Messages coming soon!')" aria-label="Messages"><i class="ti ti-message" aria-hidden="true"></i><span>Messages</span></button>
-    </div>
-   <div class="sb-user" style="position:relative;padding:0">
-  <button class="sb-user-btn" id="sb-user-btn" onclick="toggleDropdown('sb-dropdown')" aria-haspopup="true" aria-expanded="false">
-    <div class="u-av">MS</div>
-    <div class="u-info"><p>Marie Simard</p><small>Level A2</small></div>
-    <i class="ti ti-chevron-up sb-chevron" id="sb-chevron" aria-hidden="true"></i>
-  </button>
-  <div class="user-dropdown" id="sb-dropdown">
-    <div class="ud-header">
-      <div class="ud-av">MS</div>
-      <div>
-        <div class="ud-name">Marie Simard</div>
-        <div class="ud-email">marie@student.com</div>
-      </div>
-    </div>
-    <div class="ud-divider"></div>
-    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
-      <i class="ti ti-settings" aria-hidden="true"></i> Account settings
-    </button>
-    <button class="ud-item ud-logout" onclick="signOut()">
-      <i class="ti ti-logout" aria-hidden="true"></i> Sign out
-    </button>
-  </div>
-</div>
-  </nav>
-
-  <div class="main">
-    <!-- Mobile topbar -->
-    <div class="mob-top">
-      <span class="sb-name">L'Agence French</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:12px;color:rgba(255,255,255,.5)">Marie</span>
-<div style="position:relative">
-  <button class="mob-user-btn" id="mob-user-btn" onclick="toggleDropdown('mob-dropdown')" aria-haspopup="true" aria-expanded="false">
-    <div class="u-av" style="width:28px;height:28px;font-size:10px">MS</div>
-    <i class="ti ti-chevron-down" style="font-size:14px;color:rgba(255,255,255,.5)" aria-hidden="true"></i>
-  </button>
-  <div class="user-dropdown user-dropdown--right" id="mob-dropdown">
-    <div class="ud-header">
-      <div class="ud-av">MS</div>
-      <div>
-        <div class="ud-name">Marie Simard</div>
-        <div class="ud-email">marie@student.com</div>
-      </div>
-    </div>
-    <div class="ud-divider"></div>
-    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
-      <i class="ti ti-settings" aria-hidden="true"></i> Account settings
-    </button>
-    <button class="ud-item ud-logout" onclick="signOut()">
-      <i class="ti ti-logout" aria-hidden="true"></i> Sign out
-    </button>
-  </div>
-</div>        </div>
-    </div>
-    <!-- Desktop topbar -->
-    <div class="topbar">
-      <span class="topbar-title" id="topbar-title">Dashboard</span>
-      <div class="streak-chip"><i class="ti ti-flame" aria-hidden="true"></i> 7-day streak</div>
-    </div>
-
-    <!-- DASHBOARD -->
-    <div class="view active" id="view-dashboard">
-      <div style="margin-bottom:24px">
-        <div class="greeting">
-          <h1>Bonjour, Marie!</h1>
-          <p>You have 1 homework due Friday · Keep up the great work 🎉</p>
+    <!-- LOGIN -->
+    <div id="page-login">
+        <div class="ll">
+            <div class="ll-brand">
+                <div class="logo-mark">LA</div>
+                <h1>L'Agence French</h1>
+                <p>Student portal · Portail étudiant</p>
+            </div>
+            <div class="ll-quote">
+                <p>"Learning French opens doors — to culture, career, and connection. Let's make every lesson count."
+                </p>
+                <cite>— Isabelle, Founder</cite>
+            </div>
         </div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">7</div><div class="stat-l">Day streak</div></div>
-        <div class="stat"><div class="stat-n">8</div><div class="stat-l">Lessons done</div></div>
-        <div class="stat"><div class="stat-n">A2</div><div class="stat-l">Current level</div></div>
-      </div>
-      <div class="cta" onclick="goTo('lessons')">
-        <div class="cta-l"><h3>Continue where you left off</h3><p>Lesson 3 — <em>Present tense verbs</em></p></div>
-        <div class="cta-arr"><i class="ti ti-arrow-right" aria-hidden="true"></i></div>
-      </div>
-      <div class="dash-grid">
-        <div>
-          <div class="card">
-            <div class="card-label">Your progress</div>
-            <div class="pr">
-              <div class="pr-hd"><div><div class="pr-title">Module 1 — Les bases</div><div class="pr-sub">8 of 11 lessons completed</div></div><div class="pr-pct">72%</div></div>
-              <div class="pr-track"><div class="pr-fill" style="width:72%;background:var(--navy)"></div></div>
+        <div class="lr">
+            <h2>Welcome back</h2>
+            <p class="sub">Sign in to continue your French journey</p>
+            <div class="field"><label>Email address</label><input type="email" value="marie@student.com"
+                    placeholder="you@example.com"></div>
+            <div class="field"><label>Password</label><input type="password" value="demo1234" placeholder="••••••••">
             </div>
-            <div style="height:18px"></div>
-            <div class="pr">
-              <div class="pr-hd"><div><div class="pr-title">Overall course</div><div class="pr-sub">Level A2 · Beginner–Intermediate</div></div><div class="pr-pct">38%</div></div>
-              <div class="pr-track"><div class="pr-fill" style="width:38%;background:var(--gold)"></div></div>
+            <button class="btn-primary" onclick="launchApp()">Sign in to your account</button>
+            <p class="login-hint">Prototype demo — any credentials work</p>
+            <div class="divider">
+                <hr><span>or</span>
+                <hr>
             </div>
-          </div>
-          <div class="card" style="padding:0;overflow:hidden">
-            <div style="padding:20px 24px 12px"><div class="card-label">Recent lessons</div></div>
-            <div style="padding:0 16px 16px">
-              <div class="li"><div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Greetings &amp; introductions</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 15 min · Vocabulary + Speaking</div></div><span class="badge b-done">Done</span></div>
-              <div class="li"><div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Numbers 1–100</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 20 min · Listening</div></div><span class="badge b-done">Done</span></div>
-              <div class="li current" onclick="showToast('Opening lesson 3…')"><div class="lnum current">3</div><div class="li-info"><div class="li-title">Present tense verbs</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 25 min · Grammar + Exercises</div></div><span class="badge b-cur">In progress</span></div>
-            </div>
-          </div>
+            <button class="btn-outline" onclick="showToast('Free lesson booking coming soon!')"><i class="ti ti-gift"
+                    aria-hidden="true"></i> Book your free 1-hour lesson</button>
         </div>
-        <div>
-          <div class="slabel">Latest feedback</div>
-          <div class="fb-card">
-            <div class="fb-who"><div class="fb-av">IS</div><div><div class="fb-name">Isabelle · Teacher</div><div class="fb-date">May 12, 2026</div></div></div>
-            <p class="fb-body">Très bien Marie! Your pronunciation is improving a lot. Focus on the difference between the <em>u</em> and <em>ou</em> sounds for next class. Keep practising with the audio exercises — you're making great progress! 🎉</p>
-            <span class="fb-tag">Pronunciation · Speaking</span>
-          </div>
-          <div class="slabel" style="margin-top:4px">Upcoming</div>
-          <div class="card" style="padding:16px 18px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-              <div style="width:36px;height:36px;border-radius:10px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-calendar-event" style="font-size:18px;color:#8a6a00" aria-hidden="true"></i></div>
-              <div><div style="font-size:13px;font-weight:500;color:var(--text)">Next class</div><div style="font-size:12px;color:var(--hint)">Tuesday, May 20 · 4:00 PM</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="width:36px;height:36px;border-radius:10px;background:#fce8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-file-upload" style="font-size:18px;color:#c62828" aria-hidden="true"></i></div>
-              <div><div style="font-size:13px;font-weight:500;color:var(--text)">Homework due</div><div style="font-size:12px;color:var(--hint)">Friday, May 16 · Lesson 3</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- LESSONS -->
-    <div class="view" id="view-lessons">
-      <div class="mod-div"><h3>Module 1 — Les bases</h3><hr><span class="pct">72% complete</span></div>
-      <div class="li"><div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Greetings &amp; introductions</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 15 min · Vocabulary + Speaking</div></div><span class="badge b-done">Done</span></div>
-      <div class="li"><div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Numbers 1–100</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 20 min · Listening + Practice</div></div><span class="badge b-done">Done</span></div>
-      <div class="li current" onclick="showToast('Opening lesson 3…')"><div class="lnum current">3</div><div class="li-info"><div class="li-title">Present tense verbs</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 25 min · Grammar + Exercises</div></div><span class="badge b-cur">In progress</span></div>
-      <div class="li locked"><div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">At the café</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 20 min · Conversation</div></div><span class="badge b-lock">Locked</span></div>
-      <div class="li locked"><div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">French family vocabulary</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 15 min · Vocabulary</div></div><span class="badge b-lock">Locked</span></div>
-      <div class="li locked"><div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Days, months &amp; seasons</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 18 min · Vocabulary</div></div><span class="badge b-lock">Locked</span></div>
-      <div class="mod-div" style="opacity:.5"><h3>Module 2 — Intermediate</h3><hr></div>
-      <div class="li locked" style="opacity:.5"><div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Passé composé</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 30 min · Grammar</div></div><span class="badge b-lock">Locked</span></div>
-      <div class="li locked" style="opacity:.5"><div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div><div class="li-info"><div class="li-title">Giving directions in French</div><div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 22 min · Conversation</div></div><span class="badge b-lock">Locked</span></div>
-    </div>
+    <!-- APP -->
+    <div id="page-app">
 
-    <!-- HOMEWORK -->
-    <div class="view" id="view-homework">
-      <div class="hw-grid">
-        <div>
-          <div class="slabel">Due this week</div>
-          <div class="hw-card">
-            <div class="hw-top">
-              <div><div class="hw-title">Verb conjugation worksheet</div><div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px" aria-hidden="true"></i> Due May 16 <span>·</span> Lesson 3</div></div>
-              <span class="hw-st hs-p" id="hw1-status">Pending</span>
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sb-brand">
+                <div class="sb-logo">LA</div>
+                <div class="sb-name">L'Agence French <small>Student portal</small></div>
             </div>
-            <div class="drop-zone" id="drop-1" onclick="selectFile(1)">
-              <i class="ti ti-cloud-upload" aria-hidden="true"></i>
-              <p>Click or tap to choose your file</p>
-              <small>PDF, JPG, or PNG · max 10 MB</small>
+            <div class="sb-nav">
+                <button class="ni active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home"
+                        aria-hidden="true"></i><span>Dashboard</span></button>
+                <button class="ni" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book"
+                        aria-hidden="true"></i><span>Lessons</span></button>
+                <button class="ni" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload"
+                        aria-hidden="true"></i><span>Homework</span></button>
+                <button class="ni" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i
+                        class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
+                <button class="ni" onclick="showToast('Messages coming soon!')" aria-label="Messages"><i
+                        class="ti ti-message" aria-hidden="true"></i><span>Messages</span></button>
             </div>
-            <button class="btn-sub" onclick="submitHw(1)"><i class="ti ti-upload" aria-hidden="true"></i> Submit homework</button>
-          </div>
+            <div class="sb-user" style="position:relative;padding:0">
+                <button class="sb-user-btn" id="sb-user-btn" onclick="toggleDropdown('sb-dropdown')"
+                    aria-haspopup="true" aria-expanded="false">
+                    <div class="u-av">MS</div>
+                    <div class="u-info">
+                        <p>Marie Simard</p><small>Level A2</small>
+                    </div>
+                    <i class="ti ti-chevron-up sb-chevron" id="sb-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="user-dropdown" id="sb-dropdown">
+                    <div class="ud-header">
+                        <div class="ud-av">MS</div>
+                        <div>
+                            <div class="ud-name">Marie Simard</div>
+                            <div class="ud-email">marie@student.com</div>
+                        </div>
+                    </div>
+                    <div class="ud-divider"></div>
+                    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
+                        <i class="ti ti-settings" aria-hidden="true"></i> Account settings
+                    </button>
+                    <button class="ud-item ud-logout" onclick="signOut()">
+                        <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main">
+            <!-- Mobile topbar -->
+            <div class="mob-top">
+                <span class="sb-name">L'Agence French</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:12px;color:rgba(255,255,255,.5)">Marie</span>
+                    <div style="position:relative">
+                        <button class="mob-user-btn" id="mob-user-btn" onclick="toggleDropdown('mob-dropdown')"
+                            aria-haspopup="true" aria-expanded="false">
+                            <div class="u-av" style="width:28px;height:28px;font-size:10px">MS</div>
+                            <i class="ti ti-chevron-down" style="font-size:14px;color:rgba(255,255,255,.5)"
+                                aria-hidden="true"></i>
+                        </button>
+                        <div class="user-dropdown user-dropdown--right" id="mob-dropdown">
+                            <div class="ud-header">
+                                <div class="ud-av">MS</div>
+                                <div>
+                                    <div class="ud-name">Marie Simard</div>
+                                    <div class="ud-email">marie@student.com</div>
+                                </div>
+                            </div>
+                            <div class="ud-divider"></div>
+                            <button class="ud-item" onclick="showToast('Account settings coming soon!')">
+                                <i class="ti ti-settings" aria-hidden="true"></i> Account settings
+                            </button>
+                            <button class="ud-item ud-logout" onclick="signOut()">
+                                <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Desktop topbar -->
+            <div class="topbar">
+                <span class="topbar-title" id="topbar-title">Dashboard</span>
+                <div class="streak-chip"><i class="ti ti-flame" aria-hidden="true"></i> 7-day streak</div>
+            </div>
+
+            <!-- DASHBOARD -->
+            <div class="view active" id="view-dashboard">
+                <div style="margin-bottom:24px">
+                    <div class="greeting">
+                        <h1>Bonjour, Marie!</h1>
+                        <p>You have 1 homework due Friday · Keep up the great work 🎉</p>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-n">7</div>
+                        <div class="stat-l">Day streak</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n">8</div>
+                        <div class="stat-l">Lessons done</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-n">A2</div>
+                        <div class="stat-l">Current level</div>
+                    </div>
+                </div>
+                <div class="cta" onclick="goTo('lessons')">
+                    <div class="cta-l">
+                        <h3>Continue where you left off</h3>
+                        <p>Lesson 3 — <em>Present tense verbs</em></p>
+                    </div>
+                    <div class="cta-arr"><i class="ti ti-arrow-right" aria-hidden="true"></i></div>
+                </div>
+                <div class="dash-grid">
+                    <div>
+                        <div class="card">
+                            <div class="card-label">Your progress</div>
+                            <div class="pr">
+                                <div class="pr-hd">
+                                    <div>
+                                        <div class="pr-title">Module 1 — Les bases</div>
+                                        <div class="pr-sub">8 of 11 lessons completed</div>
+                                    </div>
+                                    <div class="pr-pct">72%</div>
+                                </div>
+                                <div class="pr-track">
+                                    <div class="pr-fill" style="width:72%;background:var(--navy)"></div>
+                                </div>
+                            </div>
+                            <div style="height:18px"></div>
+                            <div class="pr">
+                                <div class="pr-hd">
+                                    <div>
+                                        <div class="pr-title">Overall course</div>
+                                        <div class="pr-sub">Level A2 · Beginner–Intermediate</div>
+                                    </div>
+                                    <div class="pr-pct">38%</div>
+                                </div>
+                                <div class="pr-track">
+                                    <div class="pr-fill" style="width:38%;background:var(--gold)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="padding:0;overflow:hidden">
+                            <div style="padding:20px 24px 12px">
+                                <div class="card-label">Recent lessons</div>
+                            </div>
+                            <div style="padding:0 16px 16px">
+                                <div class="li">
+                                    <div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div>
+                                    <div class="li-info">
+                                        <div class="li-title">Greetings &amp; introductions</div>
+                                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
+                                                aria-hidden="true"></i> 15 min · Vocabulary + Speaking</div>
+                                    </div><span class="badge b-done">Done</span>
+                                </div>
+                                <div class="li">
+                                    <div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div>
+                                    <div class="li-info">
+                                        <div class="li-title">Numbers 1–100</div>
+                                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
+                                                aria-hidden="true"></i> 20 min · Listening</div>
+                                    </div><span class="badge b-done">Done</span>
+                                </div>
+                                <div class="li current" onclick="showToast('Opening lesson 3…')">
+                                    <div class="lnum current">3</div>
+                                    <div class="li-info">
+                                        <div class="li-title">Present tense verbs</div>
+                                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
+                                                aria-hidden="true"></i> 25 min · Grammar + Exercises</div>
+                                    </div><span class="badge b-cur">In progress</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slabel">Latest feedback</div>
+                        <div class="fb-card">
+                            <div class="fb-who">
+                                <div class="fb-av">IS</div>
+                                <div>
+                                    <div class="fb-name">Isabelle · Teacher</div>
+                                    <div class="fb-date">May 12, 2026</div>
+                                </div>
+                            </div>
+                            <p class="fb-body">Très bien Marie! Your pronunciation is improving a lot. Focus on the
+                                difference between the <em>u</em> and <em>ou</em> sounds for next class. Keep practising
+                                with the audio exercises — you're making great progress! 🎉</p>
+                            <span class="fb-tag">Pronunciation · Speaking</span>
+                        </div>
+                        <div class="slabel" style="margin-top:4px">Upcoming</div>
+                        <div class="card" style="padding:16px 18px">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                                <div
+                                    style="width:36px;height:36px;border-radius:10px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                    <i class="ti ti-calendar-event" style="font-size:18px;color:#8a6a00"
+                                        aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:500;color:var(--text)">Next class</div>
+                                    <div style="font-size:12px;color:var(--hint)">Tuesday, May 20 · 4:00 PM</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px">
+                                <div
+                                    style="width:36px;height:36px;border-radius:10px;background:#fce8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                    <i class="ti ti-file-upload" style="font-size:18px;color:#c62828"
+                                        aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:500;color:var(--text)">Homework due</div>
+                                    <div style="font-size:12px;color:var(--hint)">Friday, May 16 · Lesson 3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LESSONS -->
+            <div class="view" id="view-lessons">
+                <div class="mod-div">
+                    <h3>Module 1 — Les bases</h3>
+                    <hr><span class="pct">72% complete</span>
+                </div>
+                <div class="li">
+                    <div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">Greetings &amp; introductions</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 15
+                            min · Vocabulary + Speaking</div>
+                    </div><span class="badge b-done">Done</span>
+                </div>
+                <div class="li">
+                    <div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">Numbers 1–100</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 20
+                            min · Listening + Practice</div>
+                    </div><span class="badge b-done">Done</span>
+                </div>
+                <div class="li current" onclick="showToast('Opening lesson 3…')">
+                    <div class="lnum current">3</div>
+                    <div class="li-info">
+                        <div class="li-title">Present tense verbs</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 25
+                            min · Grammar + Exercises</div>
+                    </div><span class="badge b-cur">In progress</span>
+                </div>
+                <div class="li locked">
+                    <div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">At the café</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 20
+                            min · Conversation</div>
+                    </div><span class="badge b-lock">Locked</span>
+                </div>
+                <div class="li locked">
+                    <div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">French family vocabulary</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 15
+                            min · Vocabulary</div>
+                    </div><span class="badge b-lock">Locked</span>
+                </div>
+                <div class="li locked">
+                    <div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">Days, months &amp; seasons</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 18
+                            min · Vocabulary</div>
+                    </div><span class="badge b-lock">Locked</span>
+                </div>
+                <div class="mod-div" style="opacity:.5">
+                    <h3>Module 2 — Intermediate</h3>
+                    <hr>
+                </div>
+                <div class="li locked" style="opacity:.5">
+                    <div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">Passé composé</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 30
+                            min · Grammar</div>
+                    </div><span class="badge b-lock">Locked</span>
+                </div>
+                <div class="li locked" style="opacity:.5">
+                    <div class="lnum locked"><i class="ti ti-lock" aria-hidden="true"></i></div>
+                    <div class="li-info">
+                        <div class="li-title">Giving directions in French</div>
+                        <div class="li-meta"><i class="ti ti-clock" style="font-size:12px" aria-hidden="true"></i> 22
+                            min · Conversation</div>
+                    </div><span class="badge b-lock">Locked</span>
+                </div>
+            </div>
+
+            <!-- HOMEWORK -->
+            <div class="view" id="view-homework">
+                <div class="hw-grid">
+                    <div>
+                        <div class="slabel">Due this week</div>
+                        <div class="hw-card">
+                            <div class="hw-top">
+                                <div>
+                                    <div class="hw-title">Verb conjugation worksheet</div>
+                                    <div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px"
+                                            aria-hidden="true"></i> Due May 16 | 11:59 PM EST<span>·</span> Lesson 3
+                                    </div>
+                                </div>
+                                <span class="hw-st hs-p" id="hw1-status">Pending</span>
+                            </div>
+                            <input type="file" id="file-input-1" accept=".pdf,.jpg,.jpeg,.png" style="display:none"
+                                onchange="onFileChosen(1, this)">
+
+                            <div class="drop-zone" id="drop-1"
+                                onclick="document.getElementById('file-input-1').click()">
+                                <i class="ti ti-cloud-upload" aria-hidden="true"></i>
+                                <p>Click or tap to choose your file</p>
+                                <small>PDF, JPG, or PNG · max 10 MB</small>
+                            </div>
+
+                            <button class="btn-sub" onclick="submitHw(1)">
+                                <i class="ti ti-upload" aria-hidden="true"></i> Submit homework
+                            </button>
+                        </div>
+
+                        <div class="hw-card">
+                            <div class="hw-top">
+                                <div>
+                                    <div class="hw-title">Written dialogue — Au café</div>
+                                    <div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px"
+                                            aria-hidden="true"></i> Due May 23 | 11:59 PM EST<span>·</span> Lesson 4
+                                    </div>
+                                </div>
+                                <span class="hw-st hs-p" id="hw2-status">Pending</span>
+                            </div>
+                            <input type="file" id="file-input-2" accept=".pdf,.jpg,.jpeg,.png" style="display:none"
+                                onchange="onFileChosen(2, this)">
+
+                            <div class="drop-zone" id="drop-2"
+                                onclick="document.getElementById('file-input-2').click()">
+                                <i class="ti ti-cloud-upload" aria-hidden="true"></i>
+                                <p>Click or tap to choose your file</p>
+                                <small>PDF, JPG, or PNG · max 10 MB</small>
+                            </div>
+
+                            <button class="btn-sub" onclick="submitHw(2)">
+                                <i class="ti ti-upload" aria-hidden="true"></i> Submit homework
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slabel">Completed</div>
+                        <div class="hw-card">
+                            <div class="hw-top">
+                                <div>
+                                    <div class="hw-title">Numbers 1–100 audio recording</div>
+                                    <div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px"
+                                            aria-hidden="true"></i> Submitted May 10 <span>·</span> Lesson 2</div>
+                                </div>
+                                <span class="hw-st hs-r">Reviewed</span>
+                            </div>
+                            <div class="sub-file"><i class="ti ti-file-music" aria-hidden="true"></i>
+                                <div>
+                                    <p>numbers_recording.m4a</p><small>Uploaded May 10, 2026</small>
+                                </div>
+                            </div>
+                            <div class="tc"><strong>Isabelle:</strong> Good effort! Your numbers 1–20 are clear.
+                                Practice 70–90 — there's a bit of hesitation there. Overall really nice work ✓</div>
+                        </div>
+                        <div class="hw-card" style="opacity:.75">
+                            <div class="hw-top">
+                                <div>
+                                    <div class="hw-title">Greetings dialogue — written</div>
+                                    <div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px"
+                                            aria-hidden="true"></i> Submitted May 3 <span>·</span> Lesson 1</div>
+                                </div>
+                                <span class="hw-st hs-d">✓ Graded</span>
+                            </div>
+                            <div class="tc"><strong>Isabelle:</strong> Perfect dialogue structure! Minor accents to fix
+                                on <em>é</em> and <em>à</em> — check the reference sheet. Score: 9/10 ⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile bottom nav -->
+            <div class="mob-nav">
+                <button class="mn-btn active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home"
+                        aria-hidden="true"></i><span>Home</span></button>
+                <button class="mn-btn" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book"
+                        aria-hidden="true"></i><span>Lessons</span></button>
+                <button class="mn-btn" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload"
+                        aria-hidden="true"></i><span>Homework</span></button>
+                <button class="mn-btn" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i
+                        class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
+            </div>
         </div>
-        <div>
-          <div class="slabel">Completed</div>
-          <div class="hw-card">
-            <div class="hw-top">
-              <div><div class="hw-title">Numbers 1–100 audio recording</div><div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px" aria-hidden="true"></i> Submitted May 10 <span>·</span> Lesson 2</div></div>
-              <span class="hw-st hs-r">Reviewed</span>
-            </div>
-            <div class="sub-file"><i class="ti ti-file-music" aria-hidden="true"></i><div><p>numbers_recording.m4a</p><small>Uploaded May 10, 2026</small></div></div>
-            <div class="tc"><strong>Isabelle:</strong> Good effort! Your numbers 1–20 are clear. Practice 70–90 — there's a bit of hesitation there. Overall really nice work ✓</div>
-          </div>
-          <div class="hw-card" style="opacity:.75">
-            <div class="hw-top">
-              <div><div class="hw-title">Greetings dialogue — written</div><div class="hw-meta"><i class="ti ti-calendar" style="font-size:12px" aria-hidden="true"></i> Submitted May 3 <span>·</span> Lesson 1</div></div>
-              <span class="hw-st hs-d">✓ Graded</span>
-            </div>
-            <div class="tc"><strong>Isabelle:</strong> Perfect dialogue structure! Minor accents to fix on <em>é</em> and <em>à</em> — check the reference sheet. Score: 9/10 ⭐</div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Mobile bottom nav -->
-    <div class="mob-nav">
-      <button class="mn-btn active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home" aria-hidden="true"></i><span>Home</span></button>
-      <button class="mn-btn" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book" aria-hidden="true"></i><span>Lessons</span></button>
-      <button class="mn-btn" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload" aria-hidden="true"></i><span>Homework</span></button>
-      <button class="mn-btn" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
-    </div>
-  </div>
-</div>
+    <div class="toast" id="toast"><i class="ti ti-check" aria-hidden="true"></i> <span id="toast-msg"></span></div>
 
-<div class="toast" id="toast"><i class="ti ti-check" aria-hidden="true"></i> <span id="toast-msg"></span></div>
+    <script>
+        var titles = { dashboard: 'Dashboard', lessons: 'Lessons', homework: 'Homework' };
+        function launchApp() { document.getElementById('page-login').style.display = 'none'; document.getElementById('page-app').style.display = 'block'; showToast('Welcome back, Marie!') }
+        function signOut() { document.getElementById('page-app').style.display = 'none'; document.getElementById('page-login').style.display = 'flex' }
+        function goTo(v) {
+            document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+            document.querySelectorAll('.ni,.mn-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('view-' + v).classList.add('active');
+            document.querySelectorAll('.ni,.mn-btn').forEach(b => { if (b.getAttribute('aria-label') && b.getAttribute('aria-label').toLowerCase() === v) b.classList.add('active') });
+            var t = document.getElementById('topbar-title'); if (t && titles[v]) t.textContent = titles[v];
+        }
+        var fs = {};
+        var fs = {};
 
-<script>
-var titles={dashboard:'Dashboard',lessons:'Lessons',homework:'Homework'};
-function launchApp(){document.getElementById('page-login').style.display='none';document.getElementById('page-app').style.display='block';showToast('Welcome back, Marie!')}
-function signOut(){document.getElementById('page-app').style.display='none';document.getElementById('page-login').style.display='flex'}
-function goTo(v){
-  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.ni,.mn-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  document.querySelectorAll('.ni,.mn-btn').forEach(b=>{if(b.getAttribute('aria-label')&&b.getAttribute('aria-label').toLowerCase()===v)b.classList.add('active')});
-  var t=document.getElementById('topbar-title');if(t&&titles[v])t.textContent=titles[v];
-}
-var fs={};
-function selectFile(id){
-  fs[id]=true;
-  var d=document.getElementById('drop-'+id);
-  d.innerHTML='<i class="ti ti-circle-check" style="font-size:28px;color:var(--ok);display:block;margin-bottom:6px" aria-hidden="true"></i><p style="color:var(--ok);font-weight:500">homework_worksheet.pdf selected</p><small style="color:#4caf50">Ready to submit</small>';
-  d.style.borderColor='var(--ok)';d.style.background='var(--ok-bg)';
-}
-function submitHw(id){
-  if(!fs[id]){showToast('Please select a file first');return}
-  document.getElementById('hw1-status').textContent='✓ Submitted';
-  document.getElementById('hw1-status').className='hw-st hs-d';
-  var d=document.getElementById('drop-'+id);d.style.display='none';d.nextElementSibling.style.display='none';
-  var c=d.closest('.hw-card');
-  var sf=document.createElement('div');sf.className='sub-file';
-  sf.innerHTML='<i class="ti ti-file-text" aria-hidden="true"></i><div><p>homework_worksheet.pdf</p><small>Submitted '+new Date().toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})+'</small></div>';
-  c.appendChild(sf);
-  var tc=document.createElement('div');tc.className='tc';tc.innerHTML='<strong>Awaiting feedback</strong> — Isabelle will review your submission soon.';
-  c.appendChild(tc);showToast('Homework submitted successfully!');
-}
-function showToast(msg){
-  var t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
-}
+        function onFileChosen(id, input) {
+            var file = input.files[0];
+            if (!file) return;
+
+            // 10 MB guard
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('File too large — max 10 MB');
+                input.value = '';
+                return;
+            }
+
+            fs[id] = file;
+            var drop = document.getElementById('drop-' + id);
+            var icon = file.type.startsWith('image/') ? 'ti-photo' : 'ti-file-text';
+            var size = file.size < 1024 * 1024
+                ? Math.round(file.size / 1024) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+            drop.innerHTML =
+                '<i class="ti ' + icon + '" style="font-size:28px;color:var(--ok);display:block;margin-bottom:6px" aria-hidden="true"></i>' +
+                '<p style="color:var(--ok);font-weight:500">' + file.name + '</p>' +
+                '<small style="color:#4caf50">' + size + ' · Ready to submit</small>';
+            drop.style.borderColor = 'var(--ok)';
+            drop.style.background = 'var(--ok-bg)';
+        }
+
+        function submitHw(id) {
+            if (!fs[id]) { showToast('Please select a file first'); return; }
+
+            var file = fs[id];
+            var drop = document.getElementById('drop-' + id);
+            drop.style.display = 'none';
+            drop.nextElementSibling.style.display = 'none'; // hide submit btn
+
+            // Update status badge
+            var statusEl = document.getElementById('hw' + id + '-status');
+            if (statusEl) { statusEl.textContent = '✓ Submitted'; statusEl.className = 'hw-st hs-d'; }
+
+            // Show submitted file row
+            var card = drop.closest('.hw-card');
+            var sf = document.createElement('div');
+            sf.className = 'sub-file';
+            var icon = file.type.startsWith('image/') ? 'ti-photo' : 'ti-file-text';
+            sf.innerHTML =
+                '<i class="ti ' + icon + '" aria-hidden="true"></i>' +
+                '<div><p>' + file.name + '</p>' +
+                '<small>Submitted ' + new Date().toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) + '</small></div>';
+            card.appendChild(sf);
+
+            // Show awaiting feedback note
+            var tc = document.createElement('div');
+            tc.className = 'tc';
+            tc.innerHTML = '<strong>Awaiting feedback</strong> — Isabelle will review your submission soon.';
+            card.appendChild(tc);
+
+            showToast('Homework submitted successfully!');
+            delete fs[id];
+        }
+        function showToast(msg) {
+            var t = document.getElementById('toast'); document.getElementById('toast-msg').textContent = msg;
+            t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800);
+        }
 
 
-function toggleDropdown(id) {
-  var dd = document.getElementById(id);
-  var isOpen = dd.classList.contains('open');
- 
-  // Close all dropdowns first
-  document.querySelectorAll('.user-dropdown').forEach(function(el) {
-    el.classList.remove('open');
-  });
-  document.querySelectorAll('.sb-chevron').forEach(function(el) {
-    el.classList.remove('open');
-  });
- 
-  if (!isOpen) {
-    dd.classList.add('open');
-    // Rotate chevron for sidebar
-    var chevron = document.getElementById('sb-chevron');
-    if (chevron) chevron.classList.add('open');
-  }
-}
- 
-// Close dropdown when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.sb-user-btn') && !e.target.closest('.mob-user-btn') && !e.target.closest('.user-dropdown')) {
-    document.querySelectorAll('.user-dropdown').forEach(function(el) {
-      el.classList.remove('open');
-    });
-    var chevron = document.getElementById('sb-chevron');
-    if (chevron) chevron.classList.remove('open');
-  }
-});
-</script>
+        function toggleDropdown(id) {
+            var dd = document.getElementById(id);
+            var isOpen = dd.classList.contains('open');
+
+            // Close all dropdowns first
+            document.querySelectorAll('.user-dropdown').forEach(function (el) {
+                el.classList.remove('open');
+            });
+            document.querySelectorAll('.sb-chevron').forEach(function (el) {
+                el.classList.remove('open');
+            });
+
+            if (!isOpen) {
+                dd.classList.add('open');
+                // Rotate chevron for sidebar
+                var chevron = document.getElementById('sb-chevron');
+                if (chevron) chevron.classList.add('open');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.sb-user-btn') && !e.target.closest('.mob-user-btn') && !e.target.closest('.user-dropdown')) {
+                document.querySelectorAll('.user-dropdown').forEach(function (el) {
+                    el.classList.remove('open');
+                });
+                var chevron = document.getElementById('sb-chevron');
+                if (chevron) chevron.classList.remove('open');
+            }
+        });
+    </script>
 </body>
+
 </html>
