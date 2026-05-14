@@ -205,6 +205,117 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;colo
   .stats{grid-template-columns:1fr 1fr}
   .stat:last-child{display:none}
 }
+
+
+
+
+.sb-user-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,.07);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  transition: background .15s;
+}
+.sb-user-btn:hover { background: rgba(255,255,255,.05); }
+.sb-chevron { font-size: 15px; color: rgba(255,255,255,.3); margin-left: auto; transition: transform .2s; }
+.sb-chevron.open { transform: rotate(180deg); }
+ 
+/* Mobile user button */
+.mob-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+ 
+/* Shared dropdown panel */
+.user-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 12px;
+  right: 12px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(18,18,42,.18), 0 0 0 1px rgba(18,18,42,.07);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity .18s, transform .18s;
+  z-index: 200;
+}
+.user-dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+ 
+/* Mobile dropdown opens downward, aligns to right */
+.user-dropdown--right {
+  bottom: auto;
+  top: calc(100% + 8px);
+  left: auto;
+  right: 0;
+  min-width: 220px;
+}
+ 
+.ud-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+.ud-av {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #12122a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e8c44a;
+  flex-shrink: 0;
+}
+.ud-name { font-size: 14px; font-weight: 500; color: #1a1a30; }
+.ud-email { font-size: 12px; color: #a9a9c2; margin-top: 2px; }
+ 
+.ud-divider { height: 1px; background: rgba(18,18,42,.08); margin: 0 12px; }
+ 
+.ud-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #1a1a30;
+  cursor: pointer;
+  text-align: left;
+  transition: background .12s;
+}
+.ud-item .ti { font-size: 16px; color: #a9a9c2; }
+.ud-item:hover { background: #f0ede6; }
+.ud-item:last-child { margin-bottom: 4px; }
+ 
+.ud-logout { color: #c62828; }
+.ud-logout .ti { color: #c62828; }
+.ud-logout:hover { background: #fce8e8; }
+
 </style>
 </head>
 <body>
@@ -250,11 +361,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;colo
       <button class="ni" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
       <button class="ni" onclick="showToast('Messages coming soon!')" aria-label="Messages"><i class="ti ti-message" aria-hidden="true"></i><span>Messages</span></button>
     </div>
-    <div class="sb-user">
-      <div class="u-av">MS</div>
-      <div class="u-info"><p>Marie Simard</p><small>Level A2</small></div>
-      <button class="logout-btn" onclick="signOut()" aria-label="Sign out"><i class="ti ti-logout" aria-hidden="true"></i></button>
+   <div class="sb-user" style="position:relative;padding:0">
+  <button class="sb-user-btn" id="sb-user-btn" onclick="toggleDropdown('sb-dropdown')" aria-haspopup="true" aria-expanded="false">
+    <div class="u-av">MS</div>
+    <div class="u-info"><p>Marie Simard</p><small>Level A2</small></div>
+    <i class="ti ti-chevron-up sb-chevron" id="sb-chevron" aria-hidden="true"></i>
+  </button>
+  <div class="user-dropdown" id="sb-dropdown">
+    <div class="ud-header">
+      <div class="ud-av">MS</div>
+      <div>
+        <div class="ud-name">Marie Simard</div>
+        <div class="ud-email">marie@student.com</div>
+      </div>
     </div>
+    <div class="ud-divider"></div>
+    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
+      <i class="ti ti-settings" aria-hidden="true"></i> Account settings
+    </button>
+    <button class="ud-item ud-logout" onclick="signOut()">
+      <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+    </button>
+  </div>
+</div>
   </nav>
 
   <div class="main">
@@ -263,8 +392,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;colo
       <span class="sb-name">L'Agence French</span>
       <div style="display:flex;align-items:center;gap:8px">
         <span style="font-size:12px;color:rgba(255,255,255,.5)">Marie</span>
-        <div class="u-av" style="width:28px;height:28px;font-size:10px">MS</div>
+<div style="position:relative">
+  <button class="mob-user-btn" id="mob-user-btn" onclick="toggleDropdown('mob-dropdown')" aria-haspopup="true" aria-expanded="false">
+    <div class="u-av" style="width:28px;height:28px;font-size:10px">MS</div>
+    <i class="ti ti-chevron-down" style="font-size:14px;color:rgba(255,255,255,.5)" aria-hidden="true"></i>
+  </button>
+  <div class="user-dropdown user-dropdown--right" id="mob-dropdown">
+    <div class="ud-header">
+      <div class="ud-av">MS</div>
+      <div>
+        <div class="ud-name">Marie Simard</div>
+        <div class="ud-email">marie@student.com</div>
       </div>
+    </div>
+    <div class="ud-divider"></div>
+    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
+      <i class="ti ti-settings" aria-hidden="true"></i> Account settings
+    </button>
+    <button class="ud-item ud-logout" onclick="signOut()">
+      <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+    </button>
+  </div>
+</div>        </div>
     </div>
     <!-- Desktop topbar -->
     <div class="topbar">
@@ -433,6 +582,38 @@ function showToast(msg){
   var t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
+
+
+function toggleDropdown(id) {
+  var dd = document.getElementById(id);
+  var isOpen = dd.classList.contains('open');
+ 
+  // Close all dropdowns first
+  document.querySelectorAll('.user-dropdown').forEach(function(el) {
+    el.classList.remove('open');
+  });
+  document.querySelectorAll('.sb-chevron').forEach(function(el) {
+    el.classList.remove('open');
+  });
+ 
+  if (!isOpen) {
+    dd.classList.add('open');
+    // Rotate chevron for sidebar
+    var chevron = document.getElementById('sb-chevron');
+    if (chevron) chevron.classList.add('open');
+  }
+}
+ 
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.sb-user-btn') && !e.target.closest('.mob-user-btn') && !e.target.closest('.user-dropdown')) {
+    document.querySelectorAll('.user-dropdown').forEach(function(el) {
+      el.classList.remove('open');
+    });
+    var chevron = document.getElementById('sb-chevron');
+    if (chevron) chevron.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
