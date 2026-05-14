@@ -1310,6 +1310,80 @@
         .ud-logout:hover {
             background: #fce8e8;
         }
+
+
+
+
+        .hw-result {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 16px;
+            align-items: start;
+            margin-top: 4px;
+        }
+
+        .hw-grade {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grade-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--grade-bg);
+            border: 2px solid var(--grade-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grade-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--grade-color);
+            line-height: 1;
+        }
+
+        .grade-denom {
+            font-size: 13px;
+            color: var(--grade-color);
+            opacity: .7;
+        }
+
+        .grade-label {
+            font-size: 11px;
+            color: var(--hint);
+            text-align: center;
+            letter-spacing: .3px;
+        }
+
+        .hf-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--hint);
+            margin-bottom: 8px;
+        }
+
+        @media(max-width:480px) {
+            .hw-result {
+                grid-template-columns: 80px 1fr;
+                gap: 12px;
+            }
+
+            .grade-circle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .grade-val {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -1702,6 +1776,7 @@
                     </div>
                     <div>
                         <div class="slabel">Completed</div>
+
                         <div class="hw-card">
                             <div class="hw-top">
                                 <div>
@@ -1716,10 +1791,24 @@
                                     <p>numbers_recording.m4a</p><small>Uploaded May 10, 2026</small>
                                 </div>
                             </div>
-                            <div class="tc"><strong>Isabelle:</strong> Good effort! Your numbers 1–20 are clear.
-                                Practice 70–90 — there's a bit of hesitation there. Overall really nice work ✓</div>
+                            <div class="hw-result">
+                                <div class="hw-grade">
+                                    <div class="grade-circle" style="--grade-color:#1a5fa8;--grade-bg:#e3f0fb">
+                                        <span class="grade-val">8.5</span>
+                                    </div>
+                                    <div class="grade-label">Pending grade</div>
+                                </div>
+                                <div class="hw-feedback">
+                                    <div class="hf-label">Feedback</div>
+                                    <div class="tc" style="margin-bottom:0"><strong>Isabelle:</strong> Good effort! Your
+                                        numbers 1–20 are clear.
+                                        Practice 70–90 — there's a bit of hesitation there. Overall really nice work ✓
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="hw-card" style="opacity:.75">
+
+                        <div class="hw-card">
                             <div class="hw-top">
                                 <div>
                                     <div class="hw-title">Greetings dialogue — written</div>
@@ -1728,8 +1817,20 @@
                                 </div>
                                 <span class="hw-st hs-d">✓ Graded</span>
                             </div>
-                            <div class="tc"><strong>Isabelle:</strong> Perfect dialogue structure! Minor accents to fix
-                                on <em>é</em> and <em>à</em> — check the reference sheet. Score: 9/10 ⭐</div>
+                            <div class="hw-result">
+                                <div class="hw-grade">
+                                    <div class="grade-circle" style="--grade-color:#2e7d32;--grade-bg:#e8f5e9">
+                                        <span class="grade-val">9<span class="grade-denom">/10</span></span>
+                                    </div>
+                                    <div class="grade-label">Score</div>
+                                </div>
+                                <div class="hw-feedback">
+                                    <div class="hf-label">Feedback</div>
+                                    <div class="tc" style="margin-bottom:0"><strong>Isabelle:</strong> Perfect dialogue
+                                        structure! Minor accents
+                                        to fix on <em>é</em> and <em>à</em> — check the reference sheet. ⭐</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
