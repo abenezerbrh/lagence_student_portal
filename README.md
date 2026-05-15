@@ -24,7 +24,7 @@ Built with vanilla HTML, CSS, and JavaScript — no frameworks or build tools re
 
 <table>
   <tr>
-    <td><img src="screenshots/login.png" width="400"/></td>
+    <td><img src="screenshots/dashboard.png" width="800"/></td>
   </tr>
   <tr>
     <td><img src="screenshots/login.png" width="400"/></td>
