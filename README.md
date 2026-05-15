@@ -22,7 +22,7 @@ Built with vanilla HTML, CSS, and JavaScript — no frameworks or build tools re
 
 ## Screenshots
 
-<table>
+<!-- <table>
   <tr>
     <td><img src="screenshots/dashboard.png" width="800"/></td>
   </tr>
@@ -34,7 +34,39 @@ Built with vanilla HTML, CSS, and JavaScript — no frameworks or build tools re
     <td><img src="screenshots/lessons.png" width="400"/></td>
     <td><img src="screenshots/homework.png" width="400"/></td>
   </tr>
-</table>
+</table> -->
+
+## Dashboard
+
+<p align="center">
+  <img src="screenshots/dashboard.png" width="900"/>
+</p>
+
+---
+
+## Login & Messages
+
+<p align="center">
+  <img src="screenshots/login.png" width="440"/>
+  <img src="screenshots/messages.png" width="440"/>
+</p>
+
+---
+
+## Lessons & Homework
+
+<p align="center">
+  <img src="screenshots/lessons.png" width="440"/>
+  <img src="screenshots/homework.png" width="440"/>
+</p>
+
+---
+
+## Mobile View
+
+<p align="center">
+  <img src="screenshots/mobile-dashboard.png" width="300"/>
+</p>
 
 ---
 
