@@ -14,25 +14,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
         :root {
-            --navy: #12122a;
-            --gold: #e8c44a;
-            --gold-pale: #fdf6dc;
-            --cream: #faf8f2;
-            --bg: #f0ede6;
-            --text: #1a1a30;
-            --muted: #6b6b8a;
-            --hint: #a9a9c2;
-            --border: rgba(18, 18, 42, .09);
-            --border-mid: rgba(18, 18, 42, .16);
+            --navy: #000000;
+            --gold: #c9a84c;
+            --gold-pale: #f7f1e3;
+            --cream: #fafafa;
+            --bg: #f5f5f5;
+            --text: #111111;
+            --muted: #555555;
+            --hint: #999999;
+            --border: rgba(0, 0, 0, .08);
+            --border-mid: rgba(0, 0, 0, .15);
             --ok: #2e7d32;
             --ok-bg: #e8f5e9;
-            --warn: #e65100;
+            --warn: #b84c00;
             --warn-bg: #fff3e0;
             --blue: #1a5fa8;
             --blue-bg: #e3f0fb;
-            --r: 14px;
-            --rs: 8px;
-            --sh: 0 2px 12px rgba(18, 18, 42, .07);
+            --r: 4px;
+            --rs: 3px;
+            --sh: 0 1px 6px rgba(0, 0, 0, .06);
             --sw: 240px;
         }
 
@@ -75,7 +75,7 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(232, 196, 74, .15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(201, 168, 76, .15) 0%, transparent 70%);
             top: -100px;
             right: -100px
         }
@@ -86,7 +86,7 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(232, 196, 74, .08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(201, 168, 76, .08) 0%, transparent 70%);
             bottom: -80px;
             left: -80px
         }
@@ -109,7 +109,7 @@
             font-size: 32px;
             color: var(--navy);
             margin: 0 auto 20px;
-            box-shadow: 0 6px 28px rgba(232, 196, 74, .4)
+            box-shadow: 0 6px 28px rgba(201, 168, 76, .4)
         }
 
         .ll-brand h1 {
@@ -332,6 +332,12 @@
             flex: 1
         }
 
+        /* nav items */
+        .ni-wrap {
+            position: relative;
+            width: 100%
+        }
+
         .ni {
             display: flex;
             align-items: center;
@@ -363,7 +369,7 @@
         }
 
         .ni.active {
-            background: rgba(232, 196, 74, .12)
+            background: rgba(201, 168, 76, .12)
         }
 
         .ni.active .ti {
@@ -375,12 +381,47 @@
             font-weight: 500
         }
 
-        .sb-user {
-            padding: 20px 24px;
-            border-top: 1px solid rgba(255, 255, 255, .07);
+        .notif-dot {
+            position: absolute;
+            top: 9px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c62828;
+            border: 2px solid var(--navy);
+            pointer-events: none
+        }
+
+        /* sidebar user */
+        .sb-user-btn {
+            width: 100%;
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 10px;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            text-align: left;
+            transition: background .15s
+        }
+
+        .sb-user-btn:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .sb-chevron {
+            font-size: 15px;
+            color: rgba(255, 255, 255, .3);
+            margin-left: auto;
+            transition: transform .2s
+        }
+
+        .sb-chevron.open {
+            transform: rotate(180deg)
         }
 
         .u-av {
@@ -408,19 +449,128 @@
             color: rgba(255, 255, 255, .4)
         }
 
-        .logout-btn {
-            margin-left: auto;
+        /* user dropdown */
+        .mob-user-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             background: transparent;
             border: none;
             cursor: pointer;
-            color: rgba(255, 255, 255, .3);
-            padding: 4px
+            padding: 2px
         }
 
-        .logout-btn:hover {
-            color: rgba(255, 255, 255, .6)
+        .user-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 12px;
+            right: 12px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .18), 0 0 0 1px rgba(0, 0, 0, .07);
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity .18s, transform .18s;
+            z-index: 200
         }
 
+        .user-dropdown.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0)
+        }
+
+        .user-dropdown--right {
+            bottom: auto;
+            top: calc(100% + 8px);
+            left: auto;
+            right: 0;
+            min-width: 220px
+        }
+
+        .ud-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px
+        }
+
+        .ud-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gold);
+            flex-shrink: 0
+        }
+
+        .ud-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111
+        }
+
+        .ud-email {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px
+        }
+
+        .ud-divider {
+            height: 1px;
+            background: rgba(0, 0, 0, .08);
+            margin: 0 12px
+        }
+
+        .ud-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #111;
+            cursor: pointer;
+            text-align: left;
+            transition: background .12s
+        }
+
+        .ud-item .ti {
+            font-size: 16px;
+            color: #999
+        }
+
+        .ud-item:hover {
+            background: #f5f5f5
+        }
+
+        .ud-item:last-child {
+            margin-bottom: 4px
+        }
+
+        .ud-logout {
+            color: #c62828
+        }
+
+        .ud-logout .ti {
+            color: #c62828
+        }
+
+        .ud-logout:hover {
+            background: #fce8e8
+        }
+
+        /* main */
         .main {
             margin-left: var(--sw);
             min-height: 100vh;
@@ -452,11 +602,11 @@
             align-items: center;
             gap: 6px;
             background: var(--gold-pale);
-            border: 1px solid rgba(232, 196, 74, .4);
+            border: 1px solid rgba(201, 168, 76, .4);
             border-radius: 20px;
             padding: 5px 12px;
             font-size: 13px;
-            color: #8a6a00;
+            color: #6b4f00;
             font-weight: 500
         }
 
@@ -641,7 +791,7 @@
 
         .pr-track {
             height: 7px;
-            background: #ebebf5;
+            background: #e8e8e8;
             border-radius: 4px;
             overflow: hidden
         }
@@ -705,10 +855,198 @@
             display: inline-block;
             margin-top: 10px;
             background: var(--gold-pale);
-            color: #8a6a00;
+            color: #6b4f00;
             font-size: 11px;
             padding: 3px 10px;
             border-radius: 20px
+        }
+
+        /* ── PRACTICE CARD ── */
+        .practice-card {
+            background: var(--navy);
+            border-radius: var(--r);
+            padding: 18px;
+            margin-bottom: 20px
+        }
+
+        .pc-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .4);
+            margin-bottom: 12px
+        }
+
+        .pc-word {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 2px
+        }
+
+        .pc-type {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .35);
+            margin-bottom: 6px;
+            font-style: italic
+        }
+
+        .pc-def {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 14px;
+            line-height: 1.5
+        }
+
+        .pc-example {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .35);
+            margin-bottom: 14px;
+            font-style: italic;
+            border-left: 2px solid rgba(201, 168, 76, .4);
+            padding-left: 10px;
+            line-height: 1.5
+        }
+
+        .pc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity .15s
+        }
+
+        .pc-btn:hover {
+            opacity: .88
+        }
+
+        /* ── MESSAGES PREVIEW ── */
+        .msg-card {
+            background: #fff;
+            border-radius: var(--r);
+            border: 1px solid var(--border);
+            box-shadow: var(--sh);
+            margin-bottom: 20px;
+            overflow: hidden
+        }
+
+        .msg-card-hd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px 10px
+        }
+
+        .msg-card-hd .slabel {
+            margin-bottom: 0
+        }
+
+        .msg-unread {
+            background: #c62828;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 20px;
+            line-height: 1.6
+        }
+
+        .msg-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .msg-item:hover {
+            background: #fafafa
+        }
+
+        .msg-item.unread {
+            background: #fffdf5
+        }
+
+        .msg-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--gold);
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        .msg-body {
+            flex: 1;
+            min-width: 0
+        }
+
+        .msg-from {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .msg-preview {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .msg-time {
+            font-size: 11px;
+            color: var(--hint);
+            white-space: nowrap;
+            margin-left: 8px;
+            flex-shrink: 0
+        }
+
+        .msg-unread-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #c62828;
+            flex-shrink: 0;
+            margin-top: 6px
+        }
+
+        .msg-footer {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+            text-align: center
+        }
+
+        .msg-footer button {
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            color: var(--hint);
+            cursor: pointer
+        }
+
+        .msg-footer button:hover {
+            color: var(--text)
         }
 
         /* lessons */
@@ -726,7 +1064,7 @@
         }
 
         .li:hover:not(.locked) {
-            box-shadow: 0 4px 16px rgba(18, 18, 42, .1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
             transform: translateY(-1px)
         }
 
@@ -743,7 +1081,7 @@
         .lnum {
             width: 40px;
             height: 40px;
-            border-radius: 11px;
+            border-radius: var(--rs);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -763,7 +1101,7 @@
         }
 
         .lnum.locked {
-            background: #f0f0f5;
+            background: #f0f0f0;
             color: var(--hint)
         }
 
@@ -808,7 +1146,7 @@
         }
 
         .b-lock {
-            background: #f0f0f5;
+            background: #f0f0f0;
             color: var(--hint)
         }
 
@@ -995,6 +1333,61 @@
             font-weight: 500
         }
 
+        .hw-result {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 16px;
+            align-items: start;
+            margin-top: 4px
+        }
+
+        .hw-grade {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px
+        }
+
+        .grade-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--grade-bg);
+            border: 2px solid var(--grade-color);
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .grade-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--grade-color);
+            line-height: 1
+        }
+
+        .grade-denom {
+            font-size: 13px;
+            color: var(--grade-color);
+            opacity: .7
+        }
+
+        .grade-label {
+            font-size: 11px;
+            color: var(--hint);
+            text-align: center;
+            letter-spacing: .3px
+        }
+
+        .hf-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--hint);
+            margin-bottom: 8px
+        }
+
         /* section label */
         .slabel {
             font-size: 11px;
@@ -1003,6 +1396,397 @@
             text-transform: uppercase;
             color: var(--hint);
             margin-bottom: 12px
+        }
+
+        /* ── MESSAGES PAGE ── */
+        .msg-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: calc(100vh - 57px);
+            overflow: hidden;
+            margin: -32px;
+            border-top: 1px solid var(--border)
+        }
+
+        .msg-list-panel {
+            border-right: 1px solid var(--border);
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .msg-list-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0
+        }
+
+        .msg-list-header h2 {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .msg-new-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: var(--navy);
+            color: var(--gold);
+            border: none;
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity .15s
+        }
+
+        .msg-new-btn:hover {
+            opacity: .85
+        }
+
+        .msg-search {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .msg-search input {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            outline: none
+        }
+
+        .msg-search input::placeholder {
+            color: var(--hint)
+        }
+
+        .msg-list-scroll {
+            flex: 1;
+            overflow-y: auto
+        }
+
+        .msg-list-scroll::-webkit-scrollbar {
+            display: none
+        }
+
+        .msg-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background .12s;
+            position: relative
+        }
+
+        .msg-row:hover {
+            background: #fafafa
+        }
+
+        .msg-row.active {
+            background: var(--gold-pale)
+        }
+
+        .msg-row.unread {
+            background: #fffdf7
+        }
+
+        .msg-row-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        .msg-row-body {
+            flex: 1;
+            min-width: 0
+        }
+
+        .msg-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px
+        }
+
+        .msg-row-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .msg-row-time {
+            font-size: 11px;
+            color: var(--hint);
+            white-space: nowrap
+        }
+
+        .msg-row-preview {
+            font-size: 12px;
+            color: var(--hint);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .msg-row-preview.bold {
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .msg-row-dot {
+            position: absolute;
+            top: 18px;
+            right: 14px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #c62828
+        }
+
+        .msg-convo-panel {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg)
+        }
+
+        .msg-convo-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px
+        }
+
+        .msg-convo-empty .ti {
+            font-size: 40px;
+            color: var(--hint)
+        }
+
+        .msg-convo-empty p {
+            font-size: 14px;
+            color: var(--hint)
+        }
+
+        .msg-convo-header {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0
+        }
+
+        .msg-convo-header-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            flex-shrink: 0
+        }
+
+        .msg-convo-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .msg-convo-status {
+            font-size: 12px;
+            color: var(--hint);
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .online-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #2e7d32;
+            display: inline-block
+        }
+
+        .msg-bubbles {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .msg-bubbles::-webkit-scrollbar {
+            display: none
+        }
+
+        .bubble-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .bubble-group.mine {
+            align-items: flex-end
+        }
+
+        .bubble-group.theirs {
+            align-items: flex-start
+        }
+
+        .bubble-sender {
+            font-size: 11px;
+            color: var(--hint);
+            margin-bottom: 2px;
+            padding: 0 4px
+        }
+
+        .bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.55;
+            max-width: 72%
+        }
+
+        .bubble.mine {
+            background: var(--navy);
+            color: #fff;
+            border-bottom-right-radius: 3px
+        }
+
+        .bubble.theirs {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 3px
+        }
+
+        .bubble-time {
+            font-size: 11px;
+            color: var(--hint);
+            padding: 0 4px;
+            margin-top: 2px
+        }
+
+        .msg-compose {
+            background: #fff;
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            flex-shrink: 0
+        }
+
+        .msg-compose textarea {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border-mid);
+            border-radius: var(--rs);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: #fff;
+            outline: none;
+            resize: none;
+            height: 42px;
+            max-height: 120px;
+            line-height: 1.5;
+            transition: border-color .2s
+        }
+
+        .msg-compose textarea:focus {
+            border-color: var(--navy)
+        }
+
+        .msg-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--navy);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: opacity .15s
+        }
+
+        .msg-send-btn:hover {
+            opacity: .85
+        }
+
+        .msg-send-btn .ti {
+            font-size: 17px;
+            color: var(--gold)
+        }
+
+        .chat-date-div {
+            text-align: center;
+            font-size: 11px;
+            color: var(--hint);
+            margin: 4px 0;
+            position: relative
+        }
+
+        .chat-date-div::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border)
+        }
+
+        .chat-date-div span {
+            background: var(--bg);
+            padding: 0 10px;
+            position: relative
+        }
+
+        @media(max-width:900px) {
+            .msg-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+                margin: 0;
+                border-top: none
+            }
+
+            .msg-convo-panel {
+                display: none
+            }
         }
 
         /* toast */
@@ -1023,7 +1807,7 @@
             gap: 8px;
             z-index: 999;
             transform: translateY(10px);
-            box-shadow: 0 8px 24px rgba(18, 18, 42, .3)
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .3)
         }
 
         .toast.show {
@@ -1055,9 +1839,11 @@
             border-top: 1px solid var(--border);
             background: #fff;
             flex-shrink: 0;
-            position: sticky;
+            position: fixed;
             bottom: 0;
-            z-index: 100
+            z-index: 100;
+            left: 0;
+            right: 0;
         }
 
         .mn-btn {
@@ -1070,7 +1856,8 @@
             align-items: center;
             gap: 3px;
             cursor: pointer;
-            font-family: 'DM Sans', sans-serif
+            font-family: 'DM Sans', sans-serif;
+            position: relative
         }
 
         .mn-btn .ti {
@@ -1090,6 +1877,17 @@
 
         .mn-btn.active span {
             font-weight: 500
+        }
+
+        .mob-notif-dot {
+            position: absolute;
+            top: 8px;
+            right: calc(50% - 14px);
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #c62828;
+            border: 1.5px solid #fff
         }
 
         @media(max-width:900px) {
@@ -1154,235 +1952,19 @@
             .stat:last-child {
                 display: none
             }
-        }
 
-
-
-
-        .sb-user-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 20px 24px;
-            background: transparent;
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, .07);
-            cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
-            text-align: left;
-            transition: background .15s;
-        }
-
-        .sb-user-btn:hover {
-            background: rgba(255, 255, 255, .05);
-        }
-
-        .sb-chevron {
-            font-size: 15px;
-            color: rgba(255, 255, 255, .3);
-            margin-left: auto;
-            transition: transform .2s;
-        }
-
-        .sb-chevron.open {
-            transform: rotate(180deg);
-        }
-
-        /* Mobile user button */
-        .mob-user-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 2px;
-        }
-
-        /* Shared dropdown panel */
-        .user-dropdown {
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 12px;
-            right: 12px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(18, 18, 42, .18), 0 0 0 1px rgba(18, 18, 42, .07);
-            overflow: hidden;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(6px);
-            transition: opacity .18s, transform .18s;
-            z-index: 200;
-        }
-
-        .user-dropdown.open {
-            opacity: 1;
-            pointer-events: all;
-            transform: translateY(0);
-        }
-
-        /* Mobile dropdown opens downward, aligns to right */
-        .user-dropdown--right {
-            bottom: auto;
-            top: calc(100% + 8px);
-            left: auto;
-            right: 0;
-            min-width: 220px;
-        }
-
-        .ud-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-        }
-
-        .ud-av {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #12122a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 500;
-            color: #e8c44a;
-            flex-shrink: 0;
-        }
-
-        .ud-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1a1a30;
-        }
-
-        .ud-email {
-            font-size: 12px;
-            color: #a9a9c2;
-            margin-top: 2px;
-        }
-
-        .ud-divider {
-            height: 1px;
-            background: rgba(18, 18, 42, .08);
-            margin: 0 12px;
-        }
-
-        .ud-item {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 16px;
-            background: transparent;
-            border: none;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            color: #1a1a30;
-            cursor: pointer;
-            text-align: left;
-            transition: background .12s;
-        }
-
-        .ud-item .ti {
-            font-size: 16px;
-            color: #a9a9c2;
-        }
-
-        .ud-item:hover {
-            background: #f0ede6;
-        }
-
-        .ud-item:last-child {
-            margin-bottom: 4px;
-        }
-
-        .ud-logout {
-            color: #c62828;
-        }
-
-        .ud-logout .ti {
-            color: #c62828;
-        }
-
-        .ud-logout:hover {
-            background: #fce8e8;
-        }
-
-
-
-
-        .hw-result {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 16px;
-            align-items: start;
-            margin-top: 4px;
-        }
-
-        .hw-grade {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .grade-circle {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: var(--grade-bg);
-            border: 2px solid var(--grade-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .grade-val {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            color: var(--grade-color);
-            line-height: 1;
-        }
-
-        .grade-denom {
-            font-size: 13px;
-            color: var(--grade-color);
-            opacity: .7;
-        }
-
-        .grade-label {
-            font-size: 11px;
-            color: var(--hint);
-            text-align: center;
-            letter-spacing: .3px;
-        }
-
-        .hf-label {
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: .8px;
-            text-transform: uppercase;
-            color: var(--hint);
-            margin-bottom: 8px;
-        }
-
-        @media(max-width:480px) {
             .hw-result {
                 grid-template-columns: 80px 1fr;
-                gap: 12px;
+                gap: 12px
             }
 
             .grade-circle {
                 width: 60px;
-                height: 60px;
+                height: 60px
             }
 
             .grade-val {
-                font-size: 18px;
+                font-size: 18px
             }
         }
     </style>
@@ -1432,18 +2014,29 @@
                 <div class="sb-name">L'Agence French <small>Student portal</small></div>
             </div>
             <div class="sb-nav">
-                <button class="ni active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home"
-                        aria-hidden="true"></i><span>Dashboard</span></button>
-                <button class="ni" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book"
-                        aria-hidden="true"></i><span>Lessons</span></button>
-                <button class="ni" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload"
-                        aria-hidden="true"></i><span>Homework</span></button>
-                <button class="ni" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i
-                        class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
-                <button class="ni" onclick="showToast('Messages coming soon!')" aria-label="Messages"><i
-                        class="ti ti-message" aria-hidden="true"></i><span>Messages</span></button>
+                <div class="ni-wrap">
+                    <button class="ni active" onclick="goTo('dashboard')" aria-label="Dashboard"><i class="ti ti-home"
+                            aria-hidden="true"></i><span>Dashboard</span></button>
+                </div>
+                <div class="ni-wrap">
+                    <button class="ni" onclick="goTo('lessons')" aria-label="Lessons"><i class="ti ti-book"
+                            aria-hidden="true"></i><span>Lessons</span></button>
+                </div>
+                <div class="ni-wrap">
+                    <button class="ni" onclick="goTo('homework')" aria-label="Homework"><i class="ti ti-file-upload"
+                            aria-hidden="true"></i><span>Homework</span></button>
+                </div>
+                <div class="ni-wrap">
+                    <button class="ni" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i
+                            class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
+                </div>
+                <div class="ni-wrap">
+                    <button class="ni" onclick="goTo('messages')" aria-label="Messages"><i class="ti ti-message"
+                            aria-hidden="true"></i><span>Messages</span></button>
+                    <span class="notif-dot" aria-label="2 unread messages"></span>
+                </div>
             </div>
-            <div class="sb-user" style="position:relative;padding:0">
+            <div style="position:relative;padding:0">
                 <button class="sb-user-btn" id="sb-user-btn" onclick="toggleDropdown('sb-dropdown')"
                     aria-haspopup="true" aria-expanded="false">
                     <div class="u-av">MS</div>
@@ -1461,12 +2054,10 @@
                         </div>
                     </div>
                     <div class="ud-divider"></div>
-                    <button class="ud-item" onclick="showToast('Account settings coming soon!')">
-                        <i class="ti ti-settings" aria-hidden="true"></i> Account settings
-                    </button>
-                    <button class="ud-item ud-logout" onclick="signOut()">
-                        <i class="ti ti-logout" aria-hidden="true"></i> Sign out
-                    </button>
+                    <button class="ud-item" onclick="showToast('Account settings coming soon!')"><i
+                            class="ti ti-settings" aria-hidden="true"></i> Account settings</button>
+                    <button class="ud-item ud-logout" onclick="signOut()"><i class="ti ti-logout"
+                            aria-hidden="true"></i> Sign out</button>
                 </div>
             </div>
         </nav>
@@ -1493,32 +2084,30 @@
                                 </div>
                             </div>
                             <div class="ud-divider"></div>
-                            <button class="ud-item" onclick="showToast('Account settings coming soon!')">
-                                <i class="ti ti-settings" aria-hidden="true"></i> Account settings
-                            </button>
-                            <button class="ud-item ud-logout" onclick="signOut()">
-                                <i class="ti ti-logout" aria-hidden="true"></i> Sign out
-                            </button>
+                            <button class="ud-item" onclick="showToast('Account settings coming soon!')"><i
+                                    class="ti ti-settings" aria-hidden="true"></i> Account settings</button>
+                            <button class="ud-item ud-logout" onclick="signOut()"><i class="ti ti-logout"
+                                    aria-hidden="true"></i> Sign out</button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Desktop topbar -->
             <div class="topbar">
                 <span class="topbar-title" id="topbar-title">Dashboard</span>
                 <div class="streak-chip"><i class="ti ti-flame" aria-hidden="true"></i> 7-day streak</div>
             </div>
 
-            <!-- DASHBOARD -->
+            <!-- ═══ DASHBOARD ═══ -->
             <div class="view active" id="view-dashboard">
                 <div style="margin-bottom:24px">
                     <div class="greeting">
                         <h1>Bonjour, Marie!</h1>
-                        <p>You have 1 homework due Friday · Keep up the great work         <i class="fa-solid fa-star"></i>
-
- </p>
+                        <p>You have 1 homework due Friday · Keep up the great work <i class="fa-solid fa-star"></i></p>
                     </div>
                 </div>
+
                 <div class="stats">
                     <div class="stat">
                         <div class="stat-n">7</div>
@@ -1533,6 +2122,7 @@
                         <div class="stat-l">Current level</div>
                     </div>
                 </div>
+
                 <div class="cta" onclick="goTo('lessons')">
                     <div class="cta-l">
                         <h3>Continue where you left off</h3>
@@ -1540,7 +2130,9 @@
                     </div>
                     <div class="cta-arr"><i class="ti ti-arrow-right" aria-hidden="true"></i></div>
                 </div>
+
                 <div class="dash-grid">
+                    <!-- LEFT COLUMN -->
                     <div>
                         <div class="card">
                             <div class="card-label">Your progress</div>
@@ -1570,6 +2162,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="card" style="padding:0;overflow:hidden">
                             <div style="padding:20px 24px 12px">
                                 <div class="card-label">Recent lessons</div>
@@ -1581,7 +2174,8 @@
                                         <div class="li-title">Greetings &amp; introductions</div>
                                         <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
                                                 aria-hidden="true"></i> 15 min · Vocabulary + Speaking</div>
-                                    </div><span class="badge b-done">Done</span>
+                                    </div>
+                                    <span class="badge b-done">Done</span>
                                 </div>
                                 <div class="li">
                                     <div class="lnum done"><i class="ti ti-check" aria-hidden="true"></i></div>
@@ -1589,7 +2183,8 @@
                                         <div class="li-title">Numbers 1–100</div>
                                         <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
                                                 aria-hidden="true"></i> 20 min · Listening</div>
-                                    </div><span class="badge b-done">Done</span>
+                                    </div>
+                                    <span class="badge b-done">Done</span>
                                 </div>
                                 <div class="li current" onclick="showToast('Opening lesson 3…')">
                                     <div class="lnum current">3</div>
@@ -1597,11 +2192,14 @@
                                         <div class="li-title">Present tense verbs</div>
                                         <div class="li-meta"><i class="ti ti-clock" style="font-size:12px"
                                                 aria-hidden="true"></i> 25 min · Grammar + Exercises</div>
-                                    </div><span class="badge b-cur">In progress</span>
+                                    </div>
+                                    <span class="badge b-cur">In progress</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- RIGHT COLUMN -->
                     <div>
                         <div class="slabel">Latest feedback</div>
                         <div class="fb-card">
@@ -1617,12 +2215,68 @@
                                 with the audio exercises — you're making great progress! 🎉</p>
                             <span class="fb-tag">Pronunciation · Speaking</span>
                         </div>
+
+                        <!-- PRACTICE TODAY CARD -->
+                        <div class="slabel">Practice today</div>
+                        <div class="practice-card">
+                            <div class="pc-label">Word of the day</div>
+                            <div class="pc-word">Se souvenir</div>
+                            <div class="pc-type">verb · reflexive</div>
+                            <div class="pc-def">To remember; to recall a memory or experience.</div>
+                            <div class="pc-example">"Je me souviens de notre première leçon." — I remember our first
+                                lesson.</div>
+                            <button class="pc-btn" onclick="showToast('Practice drills coming soon!')"><i
+                                    class="ti ti-player-play" aria-hidden="true"></i> Start 5-min drill</button>
+                        </div>
+
+                        <!-- MESSAGES PREVIEW -->
+                        <div class="slabel">Messages</div>
+                        <div class="msg-card">
+                            <div class="msg-card-hd">
+                                <span class="slabel" style="margin-bottom:0">Inbox</span>
+                                <span class="msg-unread">2 new</span>
+                            </div>
+                            <div class="msg-item unread" onclick="goTo('messages');openConvo('isabelle')">
+                                <div class="msg-av">IS</div>
+                                <div class="msg-body">
+                                    <div class="msg-from">Isabelle</div>
+                                    <div class="msg-preview">Don't forget to review the verb conjugation table before
+                                        Friday's class…</div>
+                                </div>
+                                <span class="msg-time">2h ago</span>
+                                <div class="msg-unread-dot"></div>
+                            </div>
+                            <div class="msg-item unread" onclick="goTo('messages');openConvo('lagence')">
+                                <div class="msg-av" style="background:#2e7d32;color:#fff;font-size:10px">LA</div>
+                                <div class="msg-body">
+                                    <div class="msg-from">L'Agence French</div>
+                                    <div class="msg-preview">Your homework for Lesson 3 has been received and is under
+                                        review…</div>
+                                </div>
+                                <span class="msg-time">Yesterday</span>
+                                <div class="msg-unread-dot"></div>
+                            </div>
+                            <div class="msg-item" onclick="goTo('messages');openConvo('isabelle')">
+                                <div class="msg-av">IS</div>
+                                <div class="msg-body">
+                                    <div class="msg-from">Isabelle</div>
+                                    <div class="msg-preview">Great work on the numbers recording! Keep up the
+                                        consistency…</div>
+                                </div>
+                                <span class="msg-time">May 10</span>
+                            </div>
+                            <div class="msg-footer">
+                                <button onclick="goTo('messages')">View all messages →</button>
+                            </div>
+                        </div>
+
+                        <!-- UPCOMING -->
                         <div class="slabel" style="margin-top:4px">Upcoming</div>
                         <div class="card" style="padding:16px 18px">
                             <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
                                 <div
-                                    style="width:36px;height:36px;border-radius:10px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                                    <i class="ti ti-calendar-event" style="font-size:18px;color:#8a6a00"
+                                    style="width:36px;height:36px;border-radius:var(--rs);background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                    <i class="ti ti-calendar-event" style="font-size:18px;color:#6b4f00"
                                         aria-hidden="true"></i>
                                 </div>
                                 <div>
@@ -1632,7 +2286,7 @@
                             </div>
                             <div style="display:flex;align-items:center;gap:12px">
                                 <div
-                                    style="width:36px;height:36px;border-radius:10px;background:#fce8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                    style="width:36px;height:36px;border-radius:var(--rs);background:#fce8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0">
                                     <i class="ti ti-file-upload" style="font-size:18px;color:#c62828"
                                         aria-hidden="true"></i>
                                 </div>
@@ -1646,7 +2300,7 @@
                 </div>
             </div>
 
-            <!-- LESSONS -->
+            <!-- ═══ LESSONS ═══ -->
             <div class="view" id="view-lessons">
                 <div class="mod-div">
                     <h3>Module 1 — Les bases</h3>
@@ -1722,7 +2376,7 @@
                 </div>
             </div>
 
-            <!-- HOMEWORK -->
+            <!-- ═══ HOMEWORK ═══ -->
             <div class="view" id="view-homework">
                 <div class="hw-grid">
                     <div>
@@ -1739,17 +2393,14 @@
                             </div>
                             <input type="file" id="file-input-1" accept=".pdf,.jpg,.jpeg,.png" style="display:none"
                                 onchange="onFileChosen(1, this)">
-
                             <div class="drop-zone" id="drop-1"
                                 onclick="document.getElementById('file-input-1').click()">
                                 <i class="ti ti-cloud-upload" aria-hidden="true"></i>
                                 <p>Click or tap to choose your file</p>
                                 <small>PDF, JPG, or PNG · max 10 MB</small>
                             </div>
-
-                            <button class="btn-sub" onclick="submitHw(1)">
-                                <i class="ti ti-upload" aria-hidden="true"></i> Submit homework
-                            </button>
+                            <button class="btn-sub" onclick="submitHw(1)"><i class="ti ti-upload"
+                                    aria-hidden="true"></i> Submit homework</button>
                         </div>
 
                         <div class="hw-card">
@@ -1764,22 +2415,19 @@
                             </div>
                             <input type="file" id="file-input-2" accept=".pdf,.jpg,.jpeg,.png" style="display:none"
                                 onchange="onFileChosen(2, this)">
-
                             <div class="drop-zone" id="drop-2"
                                 onclick="document.getElementById('file-input-2').click()">
                                 <i class="ti ti-cloud-upload" aria-hidden="true"></i>
                                 <p>Click or tap to choose your file</p>
                                 <small>PDF, JPG, or PNG · max 10 MB</small>
                             </div>
-
-                            <button class="btn-sub" onclick="submitHw(2)">
-                                <i class="ti ti-upload" aria-hidden="true"></i> Submit homework
-                            </button>
+                            <button class="btn-sub" onclick="submitHw(2)"><i class="ti ti-upload"
+                                    aria-hidden="true"></i> Submit homework</button>
                         </div>
                     </div>
+
                     <div>
                         <div class="slabel">Completed</div>
-
                         <div class="hw-card">
                             <div class="hw-top">
                                 <div>
@@ -1796,17 +2444,15 @@
                             </div>
                             <div class="hw-result">
                                 <div class="hw-grade">
-                                    <div class="grade-circle" style="--grade-color:#1a5fa8;--grade-bg:#e3f0fb">
-                                        <span class="grade-val">8.5</span>
-                                    </div>
+                                    <div class="grade-circle" style="--grade-color:#1a5fa8;--grade-bg:#e3f0fb"><span
+                                            class="grade-val">8.5</span></div>
                                     <div class="grade-label">Pending grade</div>
                                 </div>
                                 <div class="hw-feedback">
                                     <div class="hf-label">Feedback</div>
                                     <div class="tc" style="margin-bottom:0"><strong>Isabelle:</strong> Good effort! Your
-                                        numbers 1–20 are clear.
-                                        Practice 70–90 — there's a bit of hesitation there. Overall really nice work ✓
-                                    </div>
+                                        numbers 1–20 are clear. Practice 70–90 — there's a bit of hesitation there.
+                                        Overall really nice work ✓</div>
                                 </div>
                             </div>
                         </div>
@@ -1822,19 +2468,199 @@
                             </div>
                             <div class="hw-result">
                                 <div class="hw-grade">
-                                    <div class="grade-circle" style="--grade-color:#2e7d32;--grade-bg:#e8f5e9">
-                                        <span class="grade-val">9<span class="grade-denom">/10</span></span>
-                                    </div>
+                                    <div class="grade-circle" style="--grade-color:#2e7d32;--grade-bg:#e8f5e9"><span
+                                            class="grade-val">9<span class="grade-denom">/10</span></span></div>
                                     <div class="grade-label">Score</div>
                                 </div>
                                 <div class="hw-feedback">
                                     <div class="hf-label">Feedback</div>
                                     <div class="tc" style="margin-bottom:0"><strong>Isabelle:</strong> Perfect dialogue
-                                        structure! Minor accents
-                                        to fix on <em>é</em> and <em>à</em> — check the reference sheet. ⭐</div>
+                                        structure! Minor accents to fix on <em>é</em> and <em>à</em> — check the
+                                        reference sheet. ⭐</div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ MESSAGES ═══ -->
+            <div class="view" id="view-messages">
+                <div class="msg-layout">
+
+                    <!-- LEFT: conversation list -->
+                    <div class="msg-list-panel">
+                        <div class="msg-list-header">
+                            <h2>Messages</h2>
+                            <button class="msg-new-btn" onclick="showToast('New message coming soon!')"><i
+                                    class="ti ti-edit" aria-hidden="true"></i> New</button>
+                        </div>
+                        <div class="msg-search">
+                            <input type="text" placeholder="Search messages…">
+                        </div>
+                        <div class="msg-list-scroll">
+
+                            <div class="msg-row unread active" onclick="openConvo('isabelle')">
+                                <div class="msg-row-av" style="background:var(--navy);color:var(--gold)">IS</div>
+                                <div class="msg-row-body">
+                                    <div class="msg-row-top">
+                                        <span class="msg-row-name">Isabelle</span>
+                                        <span class="msg-row-time">2h ago</span>
+                                    </div>
+                                    <div class="msg-row-preview bold">Don't forget to review the verb conjugation table…
+                                    </div>
+                                </div>
+                                <span class="msg-row-dot"></span>
+                            </div>
+
+                            <div class="msg-row unread" onclick="openConvo('lagence')">
+                                <div class="msg-row-av" style="background:#2e7d32;color:#fff;font-size:10px">LA</div>
+                                <div class="msg-row-body">
+                                    <div class="msg-row-top">
+                                        <span class="msg-row-name">L'Agence French</span>
+                                        <span class="msg-row-time">Yesterday</span>
+                                    </div>
+                                    <div class="msg-row-preview bold">Your homework for Lesson 3 has been received…
+                                    </div>
+                                </div>
+                                <span class="msg-row-dot"></span>
+                            </div>
+
+                            <div class="msg-row" onclick="openConvo('isabelle2')">
+                                <div class="msg-row-av" style="background:var(--navy);color:var(--gold)">IS</div>
+                                <div class="msg-row-body">
+                                    <div class="msg-row-top">
+                                        <span class="msg-row-name">Isabelle</span>
+                                        <span class="msg-row-time">May 10</span>
+                                    </div>
+                                    <div class="msg-row-preview">Great work on the numbers recording! Keep up the
+                                        consistency…</div>
+                                </div>
+                            </div>
+
+                            <div class="msg-row" onclick="openConvo('isabelle3')">
+                                <div class="msg-row-av" style="background:var(--navy);color:var(--gold)">IS</div>
+                                <div class="msg-row-body">
+                                    <div class="msg-row-top">
+                                        <span class="msg-row-name">Isabelle</span>
+                                        <span class="msg-row-time">May 3</span>
+                                    </div>
+                                    <div class="msg-row-preview">Reminder: next class is Tuesday at 4 PM. See you then!
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: open conversation -->
+                    <div class="msg-convo-panel" id="convo-panel">
+
+                        <!-- default empty state -->
+                        <div class="msg-convo-empty" id="convo-empty">
+                            <i class="ti ti-messages" aria-hidden="true"></i>
+                            <p>Select a conversation</p>
+                        </div>
+
+                        <!-- Isabelle conversation (shown by default) -->
+                        <div id="convo-isabelle" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+                            <div class="msg-convo-header">
+                                <div class="msg-convo-header-av" style="background:var(--navy);color:var(--gold)">IS
+                                </div>
+                                <div>
+                                    <div class="msg-convo-name">Isabelle</div>
+                                    <div class="msg-convo-status"><span class="online-dot"></span> Online · Teacher
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="msg-bubbles" id="bubbles-isabelle">
+                                <div class="chat-date-div"><span>May 12, 2026</span></div>
+
+                                <div class="bubble-group theirs">
+                                    <span class="bubble-sender">Isabelle</span>
+                                    <div class="bubble theirs">Hi Marie! Just wanted to say your audio recording for
+                                        Lesson 2 was really good. Your numbers 1–20 were very clear.</div>
+                                    <span class="bubble-time">4:02 PM</span>
+                                </div>
+
+                                <div class="bubble-group mine">
+                                    <div class="bubble mine">Thank you so much! I practiced a lot with the recordings
+                                        you sent. The 70–90 range is still tricky for me though.</div>
+                                    <span class="bubble-time">4:15 PM</span>
+                                </div>
+
+                                <div class="bubble-group theirs">
+                                    <span class="bubble-sender">Isabelle</span>
+                                    <div class="bubble theirs">That's totally normal — soixante-dix, quatre-vingts and
+                                        quatre-vingt-dix trip everyone up at first. Try saying them out loud 10 times
+                                        each day this week. 😊</div>
+                                    <span class="bubble-time">4:18 PM</span>
+                                </div>
+
+                                <div class="bubble-group mine">
+                                    <div class="bubble mine">Will do! Should I record myself again and send it?</div>
+                                    <span class="bubble-time">4:20 PM</span>
+                                </div>
+
+                                <div class="bubble-group theirs">
+                                    <span class="bubble-sender">Isabelle</span>
+                                    <div class="bubble theirs">Yes please, that would be great. Send it before Friday
+                                        and I'll give you feedback before class.</div>
+                                    <span class="bubble-time">4:21 PM</span>
+                                </div>
+
+                                <div class="chat-date-div"><span>Today</span></div>
+
+                                <div class="bubble-group theirs">
+                                    <span class="bubble-sender">Isabelle</span>
+                                    <div class="bubble theirs">Bonjour Marie! Don't forget to review the verb
+                                        conjugation table before Friday's class — especially être and avoir. We'll be
+                                        doing a lot with those. 📚</div>
+                                    <span class="bubble-time">10:34 AM</span>
+                                </div>
+
+                            </div>
+                            <div class="msg-compose">
+                                <textarea id="compose-isabelle" placeholder="Write a message…"
+                                    onkeydown="handleEnter(event,'isabelle')"></textarea>
+                                <button class="msg-send-btn" onclick="sendMsg('isabelle')" aria-label="Send"><i
+                                        class="ti ti-send" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- L'Agence notification conversation -->
+                        <div id="convo-lagence" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+                            <div class="msg-convo-header">
+                                <div class="msg-convo-header-av" style="background:#2e7d32;color:#fff;font-size:10px">LA
+                                </div>
+                                <div>
+                                    <div class="msg-convo-name">L'Agence French</div>
+                                    <div class="msg-convo-status">System notifications</div>
+                                </div>
+                            </div>
+                            <div class="msg-bubbles">
+                                <div class="chat-date-div"><span>Yesterday</span></div>
+                                <div class="bubble-group theirs">
+                                    <span class="bubble-sender">L'Agence French</span>
+                                    <div class="bubble theirs">✅ Your homework submission for <strong>Lesson 3 — Verb
+                                            conjugation worksheet</strong> has been received and is currently under
+                                        review by Isabelle.</div>
+                                    <span class="bubble-time">3:47 PM</span>
+                                </div>
+                                <div class="bubble-group theirs">
+                                    <div class="bubble theirs">You will receive feedback within 24–48 hours. You can
+                                        track your submission status on the Homework page.</div>
+                                    <span class="bubble-time">3:47 PM</span>
+                                </div>
+                            </div>
+                            <div class="msg-compose">
+                                <textarea placeholder="Write a message…" disabled
+                                    style="background:var(--bg);color:var(--hint);cursor:not-allowed"></textarea>
+                                <button class="msg-send-btn" style="opacity:.4;cursor:not-allowed"
+                                    aria-label="Send disabled"><i class="ti ti-send" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1849,6 +2675,10 @@
                         aria-hidden="true"></i><span>Homework</span></button>
                 <button class="mn-btn" onclick="showToast('Practice tools coming soon!')" aria-label="Practice"><i
                         class="ti ti-vocabulary" aria-hidden="true"></i><span>Practice</span></button>
+                <button class="mn-btn" onclick="goTo('messages')" aria-label="Messages">
+                    <i class="ti ti-message" aria-hidden="true"></i><span>Messages</span>
+                    <span class="mob-notif-dot" aria-label="2 unread"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -1856,109 +2686,144 @@
     <div class="toast" id="toast"><i class="ti ti-check" aria-hidden="true"></i> <span id="toast-msg"></span></div>
 
     <script>
-        var titles = { dashboard: 'Dashboard', lessons: 'Lessons', homework: 'Homework' };
-        function launchApp() { document.getElementById('page-login').style.display = 'none'; document.getElementById('page-app').style.display = 'block'; showToast('Welcome back, Marie!') }
-        function signOut() { document.getElementById('page-app').style.display = 'none'; document.getElementById('page-login').style.display = 'flex' }
+        var titles = { dashboard: 'Dashboard', lessons: 'Lessons', homework: 'Homework', messages: 'Messages' };
+
+        function launchApp() {
+            document.getElementById('page-login').style.display = 'none';
+            document.getElementById('page-app').style.display = 'block';
+            showToast('Welcome back, Marie!');
+        }
+        function signOut() {
+            document.getElementById('page-app').style.display = 'none';
+            document.getElementById('page-login').style.display = 'flex';
+        }
         function goTo(v) {
             document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
             document.querySelectorAll('.ni,.mn-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('view-' + v).classList.add('active');
-            document.querySelectorAll('.ni,.mn-btn').forEach(b => { if (b.getAttribute('aria-label') && b.getAttribute('aria-label').toLowerCase() === v) b.classList.add('active') });
-            var t = document.getElementById('topbar-title'); if (t && titles[v]) t.textContent = titles[v];
+            document.querySelectorAll('.ni,.mn-btn').forEach(b => {
+                if (b.getAttribute('aria-label') && b.getAttribute('aria-label').toLowerCase() === v) b.classList.add('active');
+            });
+            var t = document.getElementById('topbar-title');
+            if (t && titles[v]) t.textContent = titles[v];
+            // auto-open first convo when navigating to messages
+            if (v === 'messages') openConvo('isabelle');
         }
-        var fs = {};
-        var fs = {};
 
+        function openConvo(id) {
+            // hide all convos
+            document.querySelectorAll('#convo-isabelle,#convo-lagence').forEach(el => { el.style.display = 'none' });
+            document.getElementById('convo-empty').style.display = 'none';
+            // mark row active
+            document.querySelectorAll('.msg-row').forEach(r => r.classList.remove('active'));
+            var target = document.getElementById('convo-' + id);
+            if (target) {
+                target.style.display = 'flex';
+                // scroll bubbles to bottom
+                var bubbles = target.querySelector('.msg-bubbles');
+                if (bubbles) setTimeout(() => { bubbles.scrollTop = bubbles.scrollHeight; }, 50);
+            }
+            // mark unread row as read
+            var rows = document.querySelectorAll('.msg-row');
+            rows.forEach(r => {
+                var av = r.querySelector('.msg-row-av');
+                if (!av) return;
+                // match by convo id roughly
+                if (id === 'isabelle' && av.textContent.trim() === 'IS' && r.querySelector('.msg-row-time') && r.querySelector('.msg-row-time').textContent === '2h ago') {
+                    r.classList.add('active'); r.classList.remove('unread');
+                    var dot = r.querySelector('.msg-row-dot'); if (dot) dot.remove();
+                }
+                if (id === 'lagence' && av.textContent.trim() === 'LA') {
+                    r.classList.add('active'); r.classList.remove('unread');
+                    var dot = r.querySelector('.msg-row-dot'); if (dot) dot.remove();
+                }
+            });
+            // hide sidebar notif dot if all read
+            var remaining = document.querySelectorAll('.msg-row.unread');
+            if (remaining.length === 0) {
+                var nd = document.querySelector('.notif-dot'); if (nd) nd.style.display = 'none';
+                var md = document.querySelector('.mob-notif-dot'); if (md) md.style.display = 'none';
+            }
+        }
+
+        function sendMsg(convoId) {
+            var ta = document.getElementById('compose-' + convoId);
+            if (!ta || !ta.value.trim()) return;
+            var text = ta.value.trim();
+            ta.value = ''; ta.style.height = '42px';
+            var bubbles = document.getElementById('bubbles-' + convoId);
+            if (!bubbles) return;
+            var group = document.createElement('div'); group.className = 'bubble-group mine';
+            var now = new Date();
+            var time = now.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' });
+            group.innerHTML = '<div class="bubble mine">' + text + '</div><span class="bubble-time">' + time + '</span>';
+            bubbles.appendChild(group);
+            bubbles.scrollTop = bubbles.scrollHeight;
+            // simulate reply after 1.5s
+            setTimeout(() => {
+                var replies = ["Got it, thank you Marie!", "Of course! I'll review that with you in our next class.", "Bien sûr ! Keep practising and you'll get there. 😊", "That's a great question — let's discuss it on Friday.", "Merci pour ton message ! À bientôt."];
+                var r = replies[Math.floor(Math.random() * replies.length)];
+                var rg = document.createElement('div'); rg.className = 'bubble-group theirs';
+                rg.innerHTML = '<span class="bubble-sender">Isabelle</span><div class="bubble theirs">' + r + '</div><span class="bubble-time">' + time + '</span>';
+                bubbles.appendChild(rg); bubbles.scrollTop = bubbles.scrollHeight;
+            }, 1500);
+        }
+
+        function handleEnter(e, id) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(id); }
+        }
+
+        var fs = {};
         function onFileChosen(id, input) {
             var file = input.files[0];
             if (!file) return;
-
-            // 10 MB guard
-            if (file.size > 10 * 1024 * 1024) {
-                showToast('File too large — max 10 MB');
-                input.value = '';
-                return;
-            }
-
+            if (file.size > 10 * 1024 * 1024) { showToast('File too large — max 10 MB'); input.value = ''; return; }
             fs[id] = file;
             var drop = document.getElementById('drop-' + id);
             var icon = file.type.startsWith('image/') ? 'ti-photo' : 'ti-file-text';
-            var size = file.size < 1024 * 1024
-                ? Math.round(file.size / 1024) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(1) + ' MB';
-
-            drop.innerHTML =
-                '<i class="ti ' + icon + '" style="font-size:28px;color:var(--ok);display:block;margin-bottom:6px" aria-hidden="true"></i>' +
-                '<p style="color:var(--ok);font-weight:500">' + file.name + '</p>' +
-                '<small style="color:#4caf50">' + size + ' · Ready to submit</small>';
-            drop.style.borderColor = 'var(--ok)';
-            drop.style.background = 'var(--ok-bg)';
+            var size = file.size < 1024 * 1024 ? Math.round(file.size / 1024) + ' KB' : (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+            drop.innerHTML = '<i class="ti ' + icon + '" style="font-size:28px;color:var(--ok);display:block;margin-bottom:6px" aria-hidden="true"></i><p style="color:var(--ok);font-weight:500">' + file.name + '</p><small style="color:#4caf50">' + size + ' · Ready to submit</small>';
+            drop.style.borderColor = 'var(--ok)'; drop.style.background = 'var(--ok-bg)';
         }
-
         function submitHw(id) {
             if (!fs[id]) { showToast('Please select a file first'); return; }
-
             var file = fs[id];
             var drop = document.getElementById('drop-' + id);
             drop.style.display = 'none';
-            drop.nextElementSibling.style.display = 'none'; // hide submit btn
-
-            // Update status badge
+            drop.nextElementSibling.style.display = 'none';
             var statusEl = document.getElementById('hw' + id + '-status');
             if (statusEl) { statusEl.textContent = '✓ Submitted'; statusEl.className = 'hw-st hs-d'; }
-
-            // Show submitted file row
             var card = drop.closest('.hw-card');
-            var sf = document.createElement('div');
-            sf.className = 'sub-file';
+            var sf = document.createElement('div'); sf.className = 'sub-file';
             var icon = file.type.startsWith('image/') ? 'ti-photo' : 'ti-file-text';
-            sf.innerHTML =
-                '<i class="ti ' + icon + '" aria-hidden="true"></i>' +
-                '<div><p>' + file.name + '</p>' +
-                '<small>Submitted ' + new Date().toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) + '</small></div>';
+            sf.innerHTML = '<i class="ti ' + icon + '" aria-hidden="true"></i><div><p>' + file.name + '</p><small>Submitted ' + new Date().toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) + '</small></div>';
             card.appendChild(sf);
-
-            // Show awaiting feedback note
-            var tc = document.createElement('div');
-            tc.className = 'tc';
+            var tc = document.createElement('div'); tc.className = 'tc';
             tc.innerHTML = '<strong>Awaiting feedback</strong> — Isabelle will review your submission soon.';
             card.appendChild(tc);
-
             showToast('Homework submitted successfully!');
             delete fs[id];
         }
         function showToast(msg) {
-            var t = document.getElementById('toast'); document.getElementById('toast-msg').textContent = msg;
-            t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800);
+            var t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2800);
         }
-
-
         function toggleDropdown(id) {
             var dd = document.getElementById(id);
             var isOpen = dd.classList.contains('open');
-
-            // Close all dropdowns first
-            document.querySelectorAll('.user-dropdown').forEach(function (el) {
-                el.classList.remove('open');
-            });
-            document.querySelectorAll('.sb-chevron').forEach(function (el) {
-                el.classList.remove('open');
-            });
-
+            document.querySelectorAll('.user-dropdown').forEach(el => el.classList.remove('open'));
+            document.querySelectorAll('.sb-chevron').forEach(el => el.classList.remove('open'));
             if (!isOpen) {
                 dd.classList.add('open');
-                // Rotate chevron for sidebar
                 var chevron = document.getElementById('sb-chevron');
                 if (chevron) chevron.classList.add('open');
             }
         }
-
-        // Close dropdown when clicking outside
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.sb-user-btn') && !e.target.closest('.mob-user-btn') && !e.target.closest('.user-dropdown')) {
-                document.querySelectorAll('.user-dropdown').forEach(function (el) {
-                    el.classList.remove('open');
-                });
+                document.querySelectorAll('.user-dropdown').forEach(el => el.classList.remove('open'));
                 var chevron = document.getElementById('sb-chevron');
                 if (chevron) chevron.classList.remove('open');
             }
