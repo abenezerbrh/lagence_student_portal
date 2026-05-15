@@ -22,9 +22,19 @@ Built with vanilla HTML, CSS, and JavaScript — no frameworks or build tools re
 
 ## Screenshots
 
-> Login · Dashboard · Lessons · Homework · Messages
-
-*(Add screenshots here)*
+<table>
+  <tr>
+    <td><img src="screenshots/login.png" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/login.png" width="400"/></td>
+    <td><img src="screenshots/messages.png" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/lessons.png" width="400"/></td>
+    <td><img src="screenshots/homework.png" width="400"/></td>
+  </tr>
+</table>
 
 ---
 
@@ -58,7 +68,7 @@ This is a frontend-only prototype. No build step or server required — open `in
 No installation needed.
 
 ```bash
-git clone https://github.com/your-username/lagence-french-portal.git
+git clone https://github.com/abenezerbrh/lagence_student_portal.git
 cd lagence-french-portal
 open index.html
 ```
