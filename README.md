@@ -65,7 +65,7 @@ Built with vanilla HTML, CSS, and JavaScript — no frameworks or build tools re
 ## Mobile View
 
 <p align="center">
-  <img src="screenshots/mobile-dashboard.png" width="300"/>
+  <img src="screenshots/mobile-dashboard.jpg" width="300"/>
 </p>
 
 ---
